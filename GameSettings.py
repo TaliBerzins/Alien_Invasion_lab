@@ -1,5 +1,30 @@
 from pathlib import Path
+
+"""Alien Invasion settings temlpate
+Tali Berzins
+File defines the settings applied to the Alien Invasion game
+Started code is from professor Gabriel Walters tutorials
+04/12/2026 """
+
 class Settings:
+    """Defines the settings for the game
+
+    Attributes:
+    name: Name of the game
+    screen_w: screen width
+    screen_h: screen height
+    FPS : frames per second the game runs on
+    bg_file : the background images used for the game
+    laser_sound: the laser sound for the game
+    ship_w: width of the ship
+    ship_h: height of the ship
+    ship_file: ship img file used
+    bullet_file: bullet image file used
+    bullet_w: bullet width
+    bullet_h: bullet height
+    bullet_amount: bullet amount
+    
+    """
 
     def __init__(self):
         self.name: str = "Alien Invasion"
