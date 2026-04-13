@@ -42,6 +42,9 @@ class Arsenal:
           for bullet in self.arsenal.copy():
                if bullet.rect.bottom <=0:
                     self.arsenal.remove(bullet)
+               elif bullet.rect.x >= 1200:
+                    self.arsenal.remove(bullet)
+
 
      def draw(self):
           """Draws each bullet in arsenal at its respective position

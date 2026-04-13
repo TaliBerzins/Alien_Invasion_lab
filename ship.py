@@ -72,30 +72,23 @@ class Ship:
        
         if self.moving_right and self.x>0 and self.y_rect == 720 and self.x<1160 and self.rect.width != 80:
             self.x+=temp_speed
+
         if self.moving_right and self.x>=1160 and self.y_rect == 720 and self.rect.width == 40:
             self.rotate_ship(90)
             self.y_rect+= 35
             self.x-= 40
-
-            
         if self.moving_right and self.x == 1120 and self.y_rect!= 0 and self.rect.width == 80:
             self.y_rect-= temp_speed
-        
+
         if self.moving_right and self.y_rect <= 0 and self.x == 1120 and self.rect.width == 80:
             self.rotate_ship(180)
             self.x += 40
-            
-            
         if self.moving_right and self.y_rect == 0 and self.x != 0:
             self.x -= temp_speed
-
 
         if self.moving_right and self.x <= 0 and self.y_rect == 0:
             self.rotate_ship(-90)
             self.y_rect += temp_speed
-            
-            
-        
         if self.moving_right and self.x == 0 and self.y_rect != 0:
             self.y_rect += temp_speed
 
@@ -110,25 +103,23 @@ class Ship:
         #Conditions for user moving left
         if self.moving_left and 1160>self.x>0 and self.y_rect == 720 and self.rect.width == 40 :
             self.x-=temp_speed
+            
         if self.moving_left and self.x<=0 and self.y_rect == 720 and self.rect.width == 40:
             self.rotate_ship(-90)
             self.y_rect+=35
         if self.moving_left and self.y_rect<= 760 and self.y_rect != 0 and self.x == 0:
             self.y_rect-= temp_speed
+
         if self.moving_left and self.y_rect <= 0 and self.x == 0:
             self.rotate_ship(180)
             self.x += temp_speed
-            
         if self.moving_left and self.y_rect == 0 and self.x != 0:
             self.x += temp_speed
-
 
         if self.moving_left and self.x >= 1160 and self.y_rect == 0:
             self.rotate_ship(90)
             self.y_rect += temp_speed
             self.x -= 40
-            
-        
         if self.moving_left and self.x == 1120 and self.y_rect != 0 and self.rect.width ==80:
             self.y_rect += temp_speed
 

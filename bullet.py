@@ -38,16 +38,64 @@ class Bullet(Sprite):
           self.image = pygame.transform.scale(self.image,
                 (self.settings.bullet_w,self.settings.bullet_h)
                 )
+          self.original_image = pygame.image.load(self.settings.bullet_file)
+          self.original_image = pygame.transform.scale(self.image,
+                (self.settings.bullet_w,self.settings.bullet_h)
+                )
           self.rect = self.image.get_rect()
           self.rect.midtop = game.ship.rect.midtop
+          
+          
           self.y = float(self.rect.y)
+          self.x = float(self.rect.x)
+          self.already_rotated = False
+          self.first_shot_instance = 0
+          
+
+
+
+
+         
+
+     def draw_bullet(self):
+          """Draws the bullet at its respective position"""
+          if self.game.ship.rect.y == 720 and self.game.ship.rect.width == 40 and self.already_rotated == False :
+               self.rotate_bullet(0)
+               self.already_rotated = True
+               self.first_shot_instance = 1
+          elif self.game.ship.rect.width == 80 and self.game.ship.rect.x == 0 and self.already_rotated == False :
+               self.rotate_bullet(-90)
+               self.already_rotated = True 
+               self.first_shot_instance = 2
+          elif self.game.ship.rect.width == 80 and self.game.ship.rect.x == 1120 and self.already_rotated == False :
+               self.rotate_bullet(90)
+               self.already_rotated = True 
+               self.first_shot_instance = 3
+          self.screen.blit(self.image,self.rect)
 
      def update(self):
           """
           Updates the bullets position based on its speed"""
-          self.y -= self.settings.bullet_speed
-          self.rect.y = self.y
+          if self.first_shot_instance == 1:
+               self.y -= self.settings.bullet_speed
+               self.rect.y = self.y
+               
+          
+          elif self.first_shot_instance == 2:
+               self.x += self.settings.bullet_speed
+               self.rect.x = self.x
+          
+          elif self.first_shot_instance == 3:
+               self.x -= self.settings.bullet_speed
+               self.rect.x = self.x
 
-     def draw_bullet(self):
-          """Draws the bullet at its respective position"""
-          self.screen.blit(self.image,self.rect)
+     
+     def rotate_bullet(self,angle):
+        
+            self.image = pygame.transform.rotate(self.original_image,angle)
+            self.rect = self.image.get_rect(center=self.rect.center)
+            if angle == -90:
+                 rotate_instance = 1
+            elif angle == 180:
+                 rotate_instance = 2
+            
