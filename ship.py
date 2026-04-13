@@ -44,6 +44,10 @@ class Ship:
         self.image = pygame.transform.scale(self.image,
                 (self.settings.ship_w,self.settings.ship_h)
                 )
+        self.original_image = pygame.image.load(self.settings.ship_file)
+        self.original_image = pygame.transform.scale(self.image,
+                (self.settings.ship_w,self.settings.ship_h)
+                )
         self.rect = self.image.get_rect()
         self.rect.midbottom = self.screen_rect.midbottom
         self.moving_right = False
@@ -63,18 +67,54 @@ class Ship:
         """Updates the ships and its rectangles 
         position according to its speed """
         temp_speed = 5
+
+        #Conditions for moving right
+       
+        if self.moving_right and self.x>0 and self.y_rect == 720 and self.x<1160 and self.rect.width != 80:
+            self.x+=temp_speed
+        if self.moving_right and self.x>=1160 and self.y_rect == 720:
+            self.rotate_ship(90)
+            self.y_rect-= temp_speed
+            self.x-= 40
+            
+        if self.moving_right and self.x == 1120 and self.y_rect!= 0 and not(self.y_rect == 720 and self.x ==1120):
+            self.y_rect-= temp_speed
+        
+        if self.moving_right and self.y_rect <= 0 and self.x == 1120:
+            self.rotate_ship(180)
+            self.x -= temp_speed
+            
+        if self.moving_right and self.y_rect == 0 and self.x != 0:
+            self.x -= temp_speed
+
+
+        if self.moving_right and self.x <= 0 and self.y_rect == 0:
+            self.rotate_ship(-90)
+            self.y_rect += temp_speed
+            
+            
+        
+        if self.moving_right and self.x == 0 and self.y_rect != 0:
+            self.y_rect += temp_speed
+
+        if self.moving_right and self.y_rect >= 760:
+            self.rotate_ship(0)
+            self.x += temp_speed
+            self.y_rect-= 40
+        
+
         
 
         #Conditions for user moving left
         if self.moving_left and self.x>0 and self.y_rect == 720 and self.x<1120:
             self.x-=temp_speed
-        if self.moving_left and self.x<=0 and self.y_rect == 720 :
+        if self.moving_left and self.x<=0 and self.y_rect == 720:
             self.rotate_ship(-90)
             self.y_rect-= temp_speed
         if self.moving_left and self.y_rect<= 760 and self.y_rect != 0 and self.x == 0:
             self.y_rect-= temp_speed
         if self.moving_left and self.y_rect <= 0 and self.x == 0:
-            self.rotate_ship(-90)
+            self.rotate_ship(180)
             self.x += temp_speed
             
         if self.moving_left and self.y_rect == 0 and self.x != 0:
@@ -82,7 +122,7 @@ class Ship:
 
 
         if self.moving_left and self.x >= 1160 and self.y_rect == 0:
-            self.rotate_ship(-90)
+            self.rotate_ship(90)
             self.y_rect += temp_speed
             self.x -= 40
             
@@ -91,7 +131,7 @@ class Ship:
             self.y_rect += temp_speed
 
         if self.moving_left and self.y_rect >= 760:
-            self.rotate_ship(-90)
+            self.rotate_ship(0)
             self.x -= temp_speed
             self.y_rect-= 40
             
@@ -114,7 +154,8 @@ class Ship:
         return self.arsenal.fire_bullet()
     
     def rotate_ship(self,angle):
-            self.image = pygame.transform.rotate(self.image,angle)
+        
+            self.image = pygame.transform.rotate(self.original_image,angle)
             self.rect = self.image.get_rect(center=self.rect.center)
             self.screen.blit(self.image,self.rect)
 
