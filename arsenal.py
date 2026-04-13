@@ -40,10 +40,11 @@ class Arsenal:
           """Removes each bullet that is off screen from arsenal
           """
           for bullet in self.arsenal.copy():
-               if bullet.rect.bottom <=0:
+               if bullet.rect.bottom <=0 or bullet.rect.x >= 1200 or bullet.rect.x <= 0 or bullet.rect.y >= 800:
+
                     self.arsenal.remove(bullet)
-               elif bullet.rect.x >= 1200:
-                    self.arsenal.remove(bullet)
+            
+               
 
 
      def draw(self):

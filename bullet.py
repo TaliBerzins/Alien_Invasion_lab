@@ -71,6 +71,13 @@ class Bullet(Sprite):
                self.rotate_bullet(90)
                self.already_rotated = True 
                self.first_shot_instance = 3
+               
+
+          elif self.game.ship.rect.width == 40 and self.game.ship.rect.y == 0 and self.already_rotated == False :
+               self.rotate_bullet(180)
+               self.already_rotated = True 
+               self.first_shot_instance = 4
+          
           self.screen.blit(self.image,self.rect)
 
      def update(self):
@@ -89,13 +96,14 @@ class Bullet(Sprite):
                self.x -= self.settings.bullet_speed
                self.rect.x = self.x
 
+          elif self.first_shot_instance == 4:
+               self.y += self.settings.bullet_speed
+               self.rect.y = self.y
+
      
      def rotate_bullet(self,angle):
         
             self.image = pygame.transform.rotate(self.original_image,angle)
             self.rect = self.image.get_rect(center=self.rect.center)
-            if angle == -90:
-                 rotate_instance = 1
-            elif angle == 180:
-                 rotate_instance = 2
+            
             
