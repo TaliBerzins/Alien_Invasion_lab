@@ -44,7 +44,7 @@ class Bullet(Sprite):
 
      def update(self):
           """
-          Updates the ibullets position based on its speed"""
+          Updates the bullets position based on its speed"""
           self.y -= self.settings.bullet_speed
           self.rect.y = self.y
 
