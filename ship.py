@@ -49,6 +49,7 @@ class Ship:
         self.moving_right = False
         self.moving_left = False
         self.x = float(self.rect.x)
+        self.y_rect = float(self.rect.y)
         self.arsenal = arsenal
 
 
@@ -64,14 +65,18 @@ class Ship:
         temp_speed = 5
         if self.moving_right:
             self.x += temp_speed
-        if self.moving_left:
+        if self.moving_left and self.x>0:
             self.x-=temp_speed
+        if self.moving_left and self.x<=0:
+            self.rotate_ship()
+            self.y_rect-= temp_speed
         
         self.rect.x = self.x
+        self.rect.y = self.y_rect
         
     def draw(self):
         """Draws the ship at the top left corner of the rectangle
-        as defined by self.rect"""
+        as defined by self.rect as well as its arsenal"""
         self.arsenal.draw()
         self.screen.blit(self.image,self.rect)
 
@@ -81,3 +86,12 @@ class Ship:
         or false depending on if a bullet can be fired or not
         """
         return self.arsenal.fire_bullet()
+    
+    def rotate_ship(self):
+            self.image = pygame.transform.rotate(self.image,90)
+            self.x+=5
+            self.rect = self.image.get_rect(center=self.rect.center)
+            self.screen.blit(self.image,self.rect)
+
+
+
