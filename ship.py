@@ -65,11 +65,35 @@ class Ship:
         temp_speed = 5
         if self.moving_right:
             self.x += temp_speed
-        if self.moving_left and self.x>0:
+
+
+        #Conditions for user moving left
+        if self.moving_left and self.x>0 and self.y_rect == 720:
             self.x-=temp_speed
-        if self.moving_left and self.x<=0:
+        if self.moving_left and self.x<=0 and self.y_rect == 720 :
             self.rotate_ship()
             self.y_rect-= temp_speed
+        if self.moving_left and self.y_rect<= 760 and self.y_rect != 0 and self.x == 0:
+            self.y_rect-= temp_speed
+        if self.moving_left and self.y_rect <= 0 and self.x == 0:
+            self.rotate_ship()
+            self.x += temp_speed
+            
+        if self.moving_left and self.y_rect == 0 and self.x != 0:
+            self.x += temp_speed
+
+        if self.moving_left and self.x >= 1160 and self.y_rect == 0:
+            self.rotate_ship()
+            self.y_rect += temp_speed
+        
+        if self.moving_left and self.x == 1120 and self.y_rect != 0:
+            self.y_rect += temp_speed
+
+        if self.moving_left and self.y_rect >= 760:
+            self.rotate_ship()
+            self.x_rect -= temp_speed
+            
+
         
         self.rect.x = self.x
         self.rect.y = self.y_rect
@@ -88,8 +112,7 @@ class Ship:
         return self.arsenal.fire_bullet()
     
     def rotate_ship(self):
-            self.image = pygame.transform.rotate(self.image,90)
-            self.x+=5
+            self.image = pygame.transform.rotate(self.image,-90)
             self.rect = self.image.get_rect(center=self.rect.center)
             self.screen.blit(self.image,self.rect)
 
