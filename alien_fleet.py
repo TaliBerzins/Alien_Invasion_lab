@@ -1,4 +1,5 @@
 import pygame
+import random 
 from alien import Alien
 from typing import TYPE_CHECKING
 
@@ -31,13 +32,32 @@ class AlienFleet:
           self._create_rectangle_fleet(alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset)
 
      def _create_rectangle_fleet(self, alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset):
-         for row in range(fleet_h):
-           for col in range(fleet_w):
-               current_x = alien_w * col + x_offset
-               current_y = alien_h * row + y_offset
-               if col % 2 == 0 or row %2 ==0:
-                   continue
-               self._create_alien(current_x, current_y)
+         num_of_aliens_gen = random.SystemRandom()
+         ran_1 = (num_of_aliens_gen.randint(2,10))
+         ran_2 = (num_of_aliens_gen.randint(2,10))
+         ran_3 = (num_of_aliens_gen.randint(2,10))
+         ran_4 = (num_of_aliens_gen.randint(2,10))
+         
+
+         for row in range(0,fleet_h,2):
+              for col in range(fleet_w):
+                current_x = alien_w * col + x_offset
+                current_y = alien_h * row + y_offset
+                if col% 2 == 0 or col % ran_1 == 0 or col % ran_2 == 0 or col % ran_3 == 0 or col % ran_4 == 0:
+                    continue
+                self._create_alien(current_x, current_y)
+                print(ran_1, ran_2, ran_3, ran_4)
+                print(fleet_w)
+            
+              ran_1 = (num_of_aliens_gen.randint(2,10))
+              ran_2 = (num_of_aliens_gen.randint(2,10))
+              ran_3 = (num_of_aliens_gen.randint(2,10))
+              ran_4 = (num_of_aliens_gen.randint(2,10))
+            
+               
+               
+
+
 
      def calculate_offset(self, alien_w, alien_h, screen_w, fleet_w, fleet_h):
          half_screen = self.settings.screen_h//2
