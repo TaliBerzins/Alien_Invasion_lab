@@ -38,7 +38,7 @@ class Ship:
         self.game = game
         self.settings = game.settings
         self.screen = game.screen
-        self.screen_rect = self.screen.get_rect()
+        self.boundaries = self.screen.get_rect()
 
         self.image = pygame.image.load(self.settings.ship_file)
         self.image = pygame.transform.scale(self.image,
@@ -49,12 +49,18 @@ class Ship:
                 (self.settings.ship_w,self.settings.ship_h)
                 )
         self.rect = self.image.get_rect()
-        self.rect.midbottom = self.screen_rect.midbottom
+        self._center_ship()
         self.moving_right = False
         self.moving_left = False
         self.x = float(self.rect.x)
         self.y_rect = float(self.rect.y)
         self.arsenal = arsenal
+
+    def _center_ship(self):
+        self.rotate_ship(0)
+        self.rect.midbottom = self.boundaries.midbottom
+        self.x = float(self.rect.x)
+        self.y = float(self.rect.y)
 
 
     def update(self):
@@ -151,6 +157,12 @@ class Ship:
             self.image = pygame.transform.rotate(self.original_image,angle)
             self.rect = self.image.get_rect(center=self.rect.center)
             self.screen.blit(self.image,self.rect)
+
+    def check_collisions(self, other_group):
+        if pygame.sprite.spritecollideany(self, other_group):
+            self._center_ship()
+            return True
+        return False
 
 
 
