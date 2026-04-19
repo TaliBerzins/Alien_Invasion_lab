@@ -59,9 +59,10 @@ class AlienInvasion:
         #Game Loop
         while self.running:
             self._check_events()
-            self.ship.update()
-            self.alien_fleet.update_fleet()
-            self._check_collisions()
+            if self.game_active:
+                self.ship.update()
+                self.alien_fleet.update_fleet()
+                self._check_collisions()
 
 
             self._update_screen()
@@ -69,15 +70,14 @@ class AlienInvasion:
 
     def _check_collisions(self):
         #check collisions for ship
-        if self.ship.check_collisions(self.alien_fleet.fleet):
+        if self.ship.check_collisions(self.alien_fleet.fleet) or self.alien_fleet.check_fleet_bottom():
             
             self._check_game_status()
             #the alien fleet to reset
             #ship recenter
             #subtract one life
         #check collisions for aliens and bottom of screen
-        if self.alien_fleet.check_fleet_bottom():
-            self._reset_level()
+        
         
         #check collisions for projectiles and aliens
         collisions = self.alien_fleet.check_collisions(self.ship.arsenal.arsenal)
@@ -112,6 +112,7 @@ class AlienInvasion:
 
         self.screen.blit(self.bg,(0,0))
         self.ship.draw()
+        self.alien_fleet.draw()
         pygame.display.flip()
 
     def _check_events(self):

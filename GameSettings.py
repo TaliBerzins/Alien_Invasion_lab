@@ -35,7 +35,7 @@ class Settings:
         self.ship_file = Path.cwd()/'Assets'/'images'/'ship2(no bg).png'
         self.ship_w = 40
         self.ship_h = 80
-        self.starting_ship_count = 1
+        self.starting_ship_count = 100
 
         self.bullet_file = Path.cwd()/'Assets'/'images'/ 'laserBlast.png'
         self.laser_sound = Path.cwd()/'Assets'/'sound'/ 'laser.mp3'

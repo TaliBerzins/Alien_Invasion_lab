@@ -60,7 +60,7 @@ class Ship:
         self.rotate_ship(0)
         self.rect.midbottom = self.boundaries.midbottom
         self.x = float(self.rect.x)
-        self.y = float(self.rect.y)
+        self.y_rect = float(self.rect.y)
 
 
     def update(self):
