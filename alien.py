@@ -1,5 +1,7 @@
 import pygame
+import random
 from pygame.sprite import Sprite
+
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -26,11 +28,14 @@ class Alien(Sprite):
           
 
      def update(self):
+        
         temp_speed = self.settings.fleet_speed
 
         self.x+=temp_speed * self.fleet.fleet_direction
         self.rect.x = self.x
         self.rect.y = self.y
+  
+             
 
      def check_edges(self):
           return (self.rect.right >= self.boundaries.right or self.rect.left<= self.boundaries.left)

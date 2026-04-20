@@ -44,7 +44,7 @@ class AlienBullet(Sprite):
                 (self.settings.bullet_w,self.settings.bullet_h)
                 )
           self.rect = self.image.get_rect()
-          self.rect.midbottom = x,y
+          self.rect.midtop = x,y
           
           
           self.y = float(self.rect.y)

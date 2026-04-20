@@ -52,15 +52,7 @@ class AlienFleet:
                 
 
                 self._create_alien(current_x, current_y)
-                if row == fleet_h-1:
-                     self.alien_arsenal.fire_bullet(current_x, current_y)
-                     print(row)
 
-
-                            
-                
-
-            
               ran_1 = (num_of_aliens_gen.randint(2,10))
               ran_2 = (num_of_aliens_gen.randint(2,10))
               ran_3 = (num_of_aliens_gen.randint(2,10))
@@ -105,8 +97,12 @@ class AlienFleet:
           self.fleet.add(new_alien)
 
      def _check_fleet_edges(self):
+          
           alien : Alien
           for alien in self.fleet:
+               if alien.x == random.randrange(0,1201,3) or alien.x == random.randrange(0,1201,3):
+                    self.alien_arsenal.fire_bullet(alien.x, alien.y)
+                    
                if alien.check_edges():
                     self._drop_alien_fleet()
                     self.fleet_direction *=-1
