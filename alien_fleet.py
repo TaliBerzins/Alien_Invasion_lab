@@ -1,22 +1,26 @@
 import pygame
 import random 
 from alien import Alien
+
+
 from typing import TYPE_CHECKING
 
 
 if TYPE_CHECKING:
      from alien_invasion import AlienInvasion
+     from alien_arsenal import AlienArsenal
      
      
 class AlienFleet:
      
-     def __init__ (self, game: 'AlienInvasion'):
+     def __init__ (self, game: 'AlienInvasion',  alien_arsenal : 'AlienArsenal'):
           
           self.game = game
           self.settings = game.settings
           self.fleet = pygame.sprite.Group()
           self.fleet_direction = self.settings.fleet_direction
           self.fleet_drop_speed = self.settings.fleet_drop_speed
+          self.alien_arsenal = alien_arsenal
 
           self.create_fleet()
 
@@ -29,9 +33,9 @@ class AlienFleet:
           fleet_w , fleet_h= self.calculate_fleet_size(alien_w, screen_w, alien_h, screen_h)
 
           x_offset, y_offset = self.calculate_offset(alien_w, alien_h, screen_w, fleet_w, fleet_h)
-          self._create_rectangle_fleet(alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset)
+          self._create_rectangle_fleet(alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset, self.alien_arsenal)
 
-     def _create_rectangle_fleet(self, alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset):
+     def _create_rectangle_fleet(self, alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset, alien_arsenal):
          num_of_aliens_gen = random.SystemRandom()
          ran_1 = (num_of_aliens_gen.randint(2,10))
          ran_2 = (num_of_aliens_gen.randint(2,10))
@@ -45,9 +49,17 @@ class AlienFleet:
                 current_y = alien_h * row + y_offset
                 if col% 2 == 0 or col % ran_1 == 0 or col % ran_2 == 0 or col % ran_3 == 0 or col % ran_4 == 0:
                     continue
+                
+
                 self._create_alien(current_x, current_y)
-                print(ran_1, ran_2, ran_3, ran_4)
-                print(fleet_w)
+                if row == fleet_h-1:
+                     self.alien_arsenal.fire_bullet(current_x, current_y)
+                     print(row)
+
+
+                            
+                
+
             
               ran_1 = (num_of_aliens_gen.randint(2,10))
               ran_2 = (num_of_aliens_gen.randint(2,10))
@@ -70,7 +82,7 @@ class AlienFleet:
 
      def calculate_fleet_size(self, alien_w, screen_w, alien_h, screen_h):
          fleet_w = (screen_w//alien_w)
-         fleet_h = ((screen_h/2)/alien_h)
+         fleet_h = 3
 
          if fleet_w % 2 == 0:
               fleet_w -=1
@@ -108,14 +120,19 @@ class AlienFleet:
      def update_fleet(self):
           self._check_fleet_edges()
           self.fleet.update()
+          self.alien_arsenal.update_alien_arsenal()
 
      def draw(self):
+          self.alien_arsenal.draw()
           alien: 'Alien'
           for alien in self.fleet:
                alien.draw_alien()
 
+               
+
      def check_collisions(self, other_group):
           return pygame.sprite.groupcollide(self.fleet, other_group, True, True)
+          
      
 
      def check_fleet_bottom(self):
@@ -127,3 +144,13 @@ class AlienFleet:
      
      def check_destroyed_status(self):
           return not self.fleet
+     
+               
+     def fire(self):
+        """Fires a bullet when called
+        Returns self.arsenal.fire_bullete() which can be true 
+        or false depending on if a bullet can be fired or not
+        """
+        return self.alien_arsenal.fire_bullet()
+               
+        

@@ -5,6 +5,7 @@ from game_stats import GameStats
 from ship import Ship
 from arsenal import Arsenal
 from alien_fleet import AlienFleet
+from alien_arsenal import AlienArsenal
 from time import sleep
 """Alien Invasion main game loop
 Tali Berzins
@@ -47,8 +48,9 @@ class AlienInvasion:
         self.impact_sound.set_volume(0.7)
 
         self.ship = Ship(self,Arsenal(self))
-        self.alien_fleet = AlienFleet(self)
+        self.alien_fleet = AlienFleet(self, AlienArsenal(self))
         self.alien_fleet.create_fleet() 
+        
         self.game_active = True
 
     def run_game(self):
