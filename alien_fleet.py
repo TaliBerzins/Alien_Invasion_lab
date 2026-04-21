@@ -33,9 +33,9 @@ class AlienFleet:
           fleet_w , fleet_h= self.calculate_fleet_size(alien_w, screen_w, alien_h, screen_h)
 
           x_offset, y_offset = self.calculate_offset(alien_w, alien_h, screen_w, fleet_w, fleet_h)
-          self._create_rectangle_fleet(alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset, self.alien_arsenal)
+          self._create_rectangle_fleet(alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset)
 
-     def _create_rectangle_fleet(self, alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset, alien_arsenal):
+     def _create_rectangle_fleet(self, alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset):
          num_of_aliens_gen = random.SystemRandom()
          ran_1 = (num_of_aliens_gen.randint(2,10))
          ran_2 = (num_of_aliens_gen.randint(2,10))
@@ -74,7 +74,7 @@ class AlienFleet:
 
      def calculate_fleet_size(self, alien_w, screen_w, alien_h, screen_h):
          fleet_w = (screen_w//alien_w)
-         fleet_h = 3
+         fleet_h = 4
 
          if fleet_w % 2 == 0:
               fleet_w -=1
@@ -97,25 +97,77 @@ class AlienFleet:
           self.fleet.add(new_alien)
 
      def _check_fleet_edges(self):
-          
           alien : Alien
           for alien in self.fleet:
-               if alien.x == random.randrange(0,1201,3) or alien.x == random.randrange(0,1201,3):
-                    self.alien_arsenal.fire_bullet(alien.x, alien.y)
-                    
                if alien.check_edges():
-                    self._drop_alien_fleet()
-                    self.fleet_direction *=-1
-                    break
+                   self._drop_alien_fleet()
+                   self.fleet_direction *=-1
+                   break
+
+     def check_if_aliens_can_shoot(self):
+         list_of_aliens_can_shoot = []
+   
+         alien : Alien
+         list_alien: Alien
+          
+         for alien in self.fleet:
+
+               if alien in list_of_aliens_can_shoot:
+                    if alien.x == random.randrange(0,1201,3) or alien.x == random.randrange(0,1201,3) or alien.x ==350:
+                       self.alien_arsenal.fire_bullet(alien.x, alien.y)
+                       continue
+                    else:
+                        continue
+                    
+               list_of_aliens_below = self.get_sprites_below(alien)
+   
+                
+               lowest_alien = alien
+               for list_alien in list_of_aliens_below:
+               # Pygame objects typically use a 'rect' for positioning
+                 if  list_alien.rect.y > lowest_alien.rect.y:
+                      lowest_alien = list_alien
+
+
+               if lowest_alien not in list_of_aliens_can_shoot:
+                   list_of_aliens_can_shoot.append(lowest_alien)
+
+               if alien in list_of_aliens_can_shoot:
+                if alien.x == random.randrange(0,1201,3) or alien.x == random.randrange(0,1201,3):
+                   self.alien_arsenal.fire_bullet(alien.x, alien.y)
+
+   
+
+                    
+
     
      def _drop_alien_fleet(self):
           for alien in self.fleet:
                alien.y += self.fleet_drop_speed
-                    
+     
+     def get_sprites_below (self, target_sprite):
+            
+            same_horizontal = []
+            other: Alien
+            for other in self.fleet:
+                if other == target_sprite:
+                    continue
+                
+                # Check if horizontal spans overlap
+                horizontally_aligned = (other.rect.left < target_sprite.rect.right and 
+                                        other.rect.right > target_sprite.rect.left)
+                
+
+                
+                if horizontally_aligned:
+                    same_horizontal.append(other)
+            return same_horizontal
+                        
 
      def update_fleet(self):
           self._check_fleet_edges()
           self.fleet.update()
+          self.check_if_aliens_can_shoot()
           self.alien_arsenal.update_alien_arsenal()
 
      def draw(self):
