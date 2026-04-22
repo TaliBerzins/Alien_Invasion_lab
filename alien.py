@@ -20,6 +20,11 @@ class Alien(Sprite):
           self.image = pygame.transform.scale(self.image,
                 (self.settings.alien_w,self.settings.alien_h)
                 )
+          
+          self.original_image = pygame.image.load(self.settings.alien_file)
+          self.original_image = pygame.transform.scale(self.image,
+                (self.settings.alien_w,self.settings.alien_h)
+                )
           self.rect = self.image.get_rect()
           self.rect.x = x
           self.rect.y = y
@@ -43,5 +48,9 @@ class Alien(Sprite):
      
 
 
-     def draw_alien(self):
-          self.screen.blit(self.image,self.rect)
+     def draw_alien(self, angle):
+            self.image = pygame.transform.rotate(self.original_image,angle)
+            self.rect = self.image.get_rect(center=self.rect.center)
+            self.screen.blit(self.image,self.rect)
+
+          

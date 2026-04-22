@@ -9,11 +9,12 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
      from alien_invasion import AlienInvasion
      from alien_arsenal import AlienArsenal
+     from ship import Ship
      
      
 class AlienFleet:
      
-     def __init__ (self, game: 'AlienInvasion',  alien_arsenal : 'AlienArsenal'):
+     def __init__ (self, game: 'AlienInvasion',  alien_arsenal : 'AlienArsenal', ship: 'Ship'):
           
           self.game = game
           self.settings = game.settings
@@ -21,6 +22,7 @@ class AlienFleet:
           self.fleet_direction = self.settings.fleet_direction
           self.fleet_drop_speed = self.settings.fleet_drop_speed
           self.alien_arsenal = alien_arsenal
+          self.ship = ship
 
           self.create_fleet()
 
@@ -113,8 +115,9 @@ class AlienFleet:
          for alien in self.fleet:
 
                if alien in list_of_aliens_can_shoot:
-                    if alien.x == random.randrange(0,1201,3) or alien.x == random.randrange(0,1201,3) or alien.x ==350:
-                       self.alien_arsenal.fire_bullet(alien.x, alien.y)
+                    if alien.x == random.randrange(0,1201) or alien.x == random.randrange(0,1201) or alien.x ==300:
+                       self.alien_arsenal.fire_bullet(alien.rect.x, alien.rect.y)
+                       print(list_of_aliens_can_shoot)
                        continue
                     else:
                         continue
@@ -132,9 +135,12 @@ class AlienFleet:
                if lowest_alien not in list_of_aliens_can_shoot:
                    list_of_aliens_can_shoot.append(lowest_alien)
 
+
                if alien in list_of_aliens_can_shoot:
-                if alien.x == random.randrange(0,1201,3) or alien.x == random.randrange(0,1201,3):
+                if alien.x == random.randrange(0,1201,3) or alien.x == random.randrange(0,1201,3) or alien.x ==300:
                    self.alien_arsenal.fire_bullet(alien.x, alien.y)
+
+
 
    
 
@@ -174,7 +180,14 @@ class AlienFleet:
           self.alien_arsenal.draw()
           alien: 'Alien'
           for alien in self.fleet:
-               alien.draw_alien()
+               if self.ship.ship_location == 0:
+                 alien.draw_alien(0)
+               elif self.ship.ship_location == 1:
+                   alien.draw_alien(90)
+               elif self.ship.ship_location == 2:
+                   alien.draw_alien(180)
+               elif self.ship.ship_location == 3:
+                   alien.draw_alien(-90)
 
                
 
@@ -200,5 +213,15 @@ class AlienFleet:
         or false depending on if a bullet can be fired or not
         """
         return self.alien_arsenal.fire_bullet()
+     
+     # def rotate_fleet(self, angle):
+     #      alien: 'Alien'
+     #      for alien in self.fleet:
+     #        alien.image = pygame.transform.rotate(alien.original.image,angle)
+     #        alien.rect = alien.image.get_rect(center=alien.rect.center)
+     #        alien.screen.blit(alien.image,alien.rect)
+
+               
+
                
         

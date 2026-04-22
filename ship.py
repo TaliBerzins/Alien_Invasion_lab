@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from alien_invasion import AlienInvasion
     from arsenal import Arsenal
+    
 
 """Alien Invasion Ship file
 Tali Berzins
@@ -55,6 +56,7 @@ class Ship:
         self.x = float(self.rect.x)
         self.y_rect = float(self.rect.y)
         self.arsenal = arsenal
+        self.ship_location = 0
 
     def _center_ship(self):
         self.rotate_ship(0)
@@ -83,18 +85,21 @@ class Ship:
             self.rotate_ship(90)
             self.y_rect+= 35
             self.x-= 40
+            self.ship_location = 1
         if self.moving_right and self.x == 1120 and self.y_rect!= 0 and self.rect.width == 80:
             self.y_rect-= temp_speed
 
         if self.moving_right and self.y_rect <= 0 and self.x == 1120 and self.rect.width == 80:
             self.rotate_ship(180)
             self.x += 40
+            self.ship_location = 2
         if self.moving_right and self.y_rect == 0 and self.x != 0:
             self.x -= temp_speed
 
         if self.moving_right and self.x <= 0 and self.y_rect == 0:
             self.rotate_ship(-90)
             self.y_rect += temp_speed
+            self.ship_location = 3
         if self.moving_right and self.x == 0 and self.y_rect != 0:
             self.y_rect += temp_speed
 
@@ -102,6 +107,7 @@ class Ship:
             self.rotate_ship(0)
             self.x += temp_speed
             self.y_rect-= 40
+            self.ship_location = 0
         
 
         
@@ -113,12 +119,14 @@ class Ship:
         if self.moving_left and self.x<=0 and self.y_rect == 720 and self.rect.width == 40:
             self.rotate_ship(-90)
             self.y_rect+=35
+            self.ship_location = 3
         if self.moving_left and self.y_rect<= 760 and self.y_rect != 0 and self.x == 0:
             self.y_rect-= temp_speed
 
         if self.moving_left and self.y_rect <= 0 and self.x == 0:
             self.rotate_ship(180)
             self.x += temp_speed
+            self.ship_location = 2
         if self.moving_left and self.y_rect == 0 and self.x != 0:
             self.x += temp_speed
 
@@ -126,6 +134,7 @@ class Ship:
             self.rotate_ship(90)
             self.y_rect += temp_speed
             self.x -= 40
+            self.ship_location = 1
         if self.moving_left and self.x == 1120 and self.y_rect != 0 and self.rect.width ==80:
             self.y_rect += temp_speed
 
@@ -133,9 +142,10 @@ class Ship:
             self.rotate_ship(0)
             self.x += 35
             self.y_rect-= 40
+            self.ship_location = 0
             
 
-        
+
         self.rect.x = self.x
         self.rect.y = self.y_rect
         
@@ -163,6 +173,11 @@ class Ship:
             self._center_ship()
             return True
         return False
+    
+    # def ship_play_status(self):
+    #     if self.rect.x == 0:
+    #         ship_status = left
+    #     elif self.rect.x  == 1120 and self.rect.y == 
 
 
 
