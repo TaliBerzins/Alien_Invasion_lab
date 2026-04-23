@@ -65,11 +65,11 @@ class AlienBullet(Sprite):
                self.already_rotated = True
                self.first_shot_instance = 1
           elif self.game.ship.rect.width == 80 and self.game.ship.rect.x == 0 and self.already_rotated == False :
-               self.rotate_bullet(90)
+               self.rotate_bullet(-90)
                self.already_rotated = True 
                self.first_shot_instance = 2
           elif self.game.ship.rect.width == 80 and self.game.ship.rect.x == 1120 and self.already_rotated == False :
-               self.rotate_bullet(-90)
+               self.rotate_bullet(90)
                self.already_rotated = True 
                self.first_shot_instance = 3
                
@@ -90,15 +90,15 @@ class AlienBullet(Sprite):
                
           
           elif self.first_shot_instance == 2:
-               self.x += self.settings.bullet_speed
+               self.x -= self.settings.bullet_speed
                self.rect.x = self.x
           
           elif self.first_shot_instance == 3:
-               self.x -= self.settings.bullet_speed
+               self.x += self.settings.bullet_speed
                self.rect.x = self.x
 
           elif self.first_shot_instance == 4:
-               self.y += self.settings.bullet_speed
+               self.y -= self.settings.bullet_speed
                self.rect.y = self.y
 
      

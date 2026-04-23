@@ -87,7 +87,7 @@ class AlienInvasion:
         if collisions:
                self.impact_sound.play()
                self.impact_sound.fadeout(250)
-               self.alien_fleet.check_if_aliens_can_shoot()
+           
 
         if self.alien_fleet.check_destroyed_status():
             self._reset_level()

@@ -138,58 +138,208 @@ class AlienFleet:
                    self.fleet_direction *=-1
                    break
 
-     def check_if_aliens_can_shoot(self):
-         list_of_aliens_can_shoot = []
+     def check_if_aliens_can_shoot_bottom(self):
+         _list_of_aliens_can_shoot = []
+         _ran_x = random.randrange(0,1201,3)
+         _ran_x_2 = random.randrange(0,1201,3)
+
+         
    
          alien : Alien
-         list_alien: Alien
+         _list_alien: Alien
           
          for alien in self.fleet:
+            
 
-               if alien in list_of_aliens_can_shoot:
-                    if alien.x == random.randrange(0,1201) or alien.x == random.randrange(0,1201) or alien.x ==300:
-                       self.alien_arsenal.fire_bullet(alien.rect.x, alien.rect.y)
-                       print(list_of_aliens_can_shoot)
+               if alien in _list_of_aliens_can_shoot:
+                    if alien.x == _ran_x or alien.x == _ran_x_2:
+                       self.alien_arsenal.fire_bullet(alien.rect.x, alien.rect.y) 
                        continue
                     else:
                         continue
                     
-               list_of_aliens_below = self.get_sprites_below(alien)
+               _list_of_aliens_below = self.get_sprites_below(alien)
    
                 
                lowest_alien = alien
-               for list_alien in list_of_aliens_below:
+               for _list_alien in _list_of_aliens_below:
                # Pygame objects typically use a 'rect' for positioning
-                 if  list_alien.rect.y > lowest_alien.rect.y:
-                      lowest_alien = list_alien
+                 if  _list_alien.rect.y > lowest_alien.rect.y:
+                      lowest_alien = _list_alien
 
 
-               if lowest_alien not in list_of_aliens_can_shoot:
-                   list_of_aliens_can_shoot.append(lowest_alien)
+               if lowest_alien not in _list_of_aliens_can_shoot:
+                   _list_of_aliens_can_shoot.append(lowest_alien)
 
 
-               if alien in list_of_aliens_can_shoot:
-                if alien.x == random.randrange(0,1201,3) or alien.x == random.randrange(0,1201,3) or alien.x ==300:
+               if alien in _list_of_aliens_can_shoot:
+                if alien.x == _ran_x or alien.x == _ran_x_2:
                    self.alien_arsenal.fire_bullet(alien.x, alien.y)
+
+
+
+
+
+
+      
+
+     def check_alien_shoots_left(self):
+         
+         _list_of_aliens_can_shoot = []
+         _ran_y = random.randrange(0,701,3)
+         _ran_y_2 = random.randrange(0,701,3)
+         
+   
+         alien : Alien
+         _list_alien_1: Alien
+         
+         
+         for alien in self.fleet:
+           if alien in _list_of_aliens_can_shoot:
+             if alien.y  == _ran_y or alien.y == _ran_y_2:
+                self.alien_arsenal.fire_bullet(alien.rect.x, alien.rect.y)
+                
+                
+
+                continue
+             else:
+                 continue
+                    
+           _list_of_aliens_left = self.get_sprites_beside(alien)
+     
+         
+   
+                
+           leftest_alien = alien
+           for _list_alien_1 in _list_of_aliens_left:
+               # Pygame objects typically use a 'rect' for positioning
+            if  _list_alien_1.rect.x < leftest_alien.rect.x:
+               leftest_alien = _list_alien_1
+    
+
+
+           if leftest_alien not in _list_of_aliens_can_shoot:
+                  _list_of_aliens_can_shoot.append(leftest_alien)
+                  print("SHOOTING 1")
+                 
+                  
+
+
+           if alien in _list_of_aliens_can_shoot:
+              if alien.y  == _ran_y or alien.y == _ran_y_2:
+                self.alien_arsenal.fire_bullet(alien.x, alien.y)
+
+     def check_alien_shoots_top(self):
+         
+         _list_of_aliens_can_shoot = []
+         _ran_x = random.randrange(0,1201,3)
+         _ran_x_2 = random.randrange(0,1201,3)
+         
+   
+         alien : Alien
+         _list_alien_2: Alien
+
+         
+         for alien in self.fleet:
+           if alien in _list_of_aliens_can_shoot:
+             if alien.x  == _ran_x or alien.x == _ran_x_2:
+                self.alien_arsenal.fire_bullet(alien.rect.x, alien.rect.y)
+                continue
+             else:
+                 continue
+                    
+           _list_of_aliens_above = self.get_sprites_below(alien)
+   
+                
+           highest_alien = alien
+           for _list_alien_2 in _list_of_aliens_above:
+               # Pygame objects typically use a 'rect' for positioning
+            if  _list_alien_2.rect.y < highest_alien.rect.y:
+               highest_alien = _list_alien_2
+
+
+            if highest_alien not in _list_of_aliens_can_shoot:
+                  _list_of_aliens_can_shoot.append(highest_alien)
+                  print("SHOOTING 2")
+                  
+                  
+                  
+
+
+            if alien in _list_of_aliens_can_shoot:
+              if alien.x  == _ran_x or alien.x == _ran_x_2:
+                self.alien_arsenal.fire_bullet(alien.x, alien.y)
+
+     def check_alien_shoots_right(self):
+         
+         _list_of_aliens_can_shoot = []
+         _ran_y = random.randrange(0,701,3)
+         _ran_y_2 = random.randrange(0,701,3)
+         
+   
+         alien : Alien
+         _list_alien_3: Alien
+         
+         for alien in self.fleet:
+           if alien in _list_of_aliens_can_shoot:
+             if alien.y  == _ran_y or alien.y == _ran_y_2:
+                self.alien_arsenal.fire_bullet(alien.rect.x, alien.rect.y)
+
+                continue
+             else:
+                 continue
+                    
+           _list_of_aliens_beside = self.get_sprites_beside(alien)
+   
+                
+           rightest_alien = alien
+           for _list_alien_3 in _list_of_aliens_beside:
+               # Pygame objects typically use a 'rect' for positioning
+              if  _list_alien_3.rect.x > rightest_alien.rect.x:
+               rightest_alien = _list_alien_3
+
+
+           if rightest_alien not in _list_of_aliens_can_shoot:
+                  _list_of_aliens_can_shoot.append(rightest_alien)
+                 
+                  
+
+
+           if alien in _list_of_aliens_can_shoot:
+              if alien.y  == _ran_y or alien.y == _ran_y_2:
+                self.alien_arsenal.fire_bullet(alien.x, alien.y)
+     
+     
 
 
      def get_sprites_below (self, target_sprite):
             
-            same_horizontal = []
+            _same_horizontal = []
             other: Alien
             for other in self.fleet:
                 if other == target_sprite:
                     continue
                 
                 # Check if horizontal spans overlap
-                horizontally_aligned = (other.rect.left < target_sprite.rect.right and 
-                                        other.rect.right > target_sprite.rect.left)
+                verticaly_aligned = (other.rect.left < target_sprite.rect.right and 
+                                        other.rect.right > target_sprite.rect.left)               
                 
-
+                if verticaly_aligned:
+                    _same_horizontal.append(other)
+            return _same_horizontal
+     def get_sprites_beside(self,target_sprite):
+            same_vertical = []
+            other: Alien
+            for other in self.fleet:
+                if other == target_sprite:
+                    continue
+                
+                # Check if horizontal spans overlap
+                horizontally_aligned = (other.rect.y == target_sprite.rect.y)               
                 
                 if horizontally_aligned:
-                    same_horizontal.append(other)
-            return same_horizontal
+                    same_vertical.append(other)
+            return same_vertical
    
 
                     
@@ -203,7 +353,14 @@ class AlienFleet:
      def update_fleet(self):
           self._check_fleet_edges()
           self.fleet.update()
-          self.check_if_aliens_can_shoot()
+          if self.ship.ship_location == 0:
+            self.check_if_aliens_can_shoot_bottom()
+          elif self.ship.ship_location == 1:
+              self.check_alien_shoots_left()
+          elif self.ship.ship_location == 2:
+              self.check_alien_shoots_top()
+          elif self.ship.ship_location == 3:
+              self.check_alien_shoots_right()
           self.alien_arsenal.update_alien_arsenal()
 
      def draw(self):
