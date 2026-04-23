@@ -72,7 +72,8 @@ class AlienInvasion:
 
     def _check_collisions(self):
         #check collisions for ship
-        if self.ship.check_collisions(self.alien_fleet.fleet) or self.alien_fleet.check_fleet_bottom():
+        if self.ship.check_collisions(self.alien_fleet.fleet):
+           # or self.alien_fleet.check_fleet_bottom():
             
             self._check_game_status()
             #the alien fleet to reset

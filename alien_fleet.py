@@ -23,6 +23,8 @@ class AlienFleet:
           self.fleet_drop_speed = self.settings.fleet_drop_speed
           self.alien_arsenal = alien_arsenal
           self.ship = ship
+          
+
 
           self.create_fleet()
 
@@ -98,11 +100,41 @@ class AlienFleet:
 
           self.fleet.add(new_alien)
 
+
+
+     def _drop_alien_fleet(self):
+          for alien in self.fleet:
+               alien.y += self.fleet_drop_speed
+
+     def _left_alien_fleet(self):
+         for alien in self.fleet:
+             alien.x-= self.fleet_drop_speed
+
+     def _ascend_alien_fleet(self):
+         for alien in self.fleet:
+             alien.y-= self.fleet_drop_speed
+
+     def _right_alien_fleet(self):
+         for alien in self.fleet:
+             alien.x+= self.fleet_drop_speed
+
      def _check_fleet_edges(self):
           alien : Alien
           for alien in self.fleet:
-               if alien.check_edges():
+               if alien.check_edges() == True and self.ship.ship_location ==0:
                    self._drop_alien_fleet()
+                   self.fleet_direction *=-1
+                   break
+               elif alien.check_edges() == True and self.ship.ship_location ==1:
+                   self._left_alien_fleet()
+                   self.fleet_direction *=-1
+                   break
+               elif alien.check_edges() == True and self.ship.ship_location ==2:
+                   self._ascend_alien_fleet()
+                   self.fleet_direction *=-1
+                   break
+               elif alien.check_edges()== True  and self.ship.ship_location ==3:
+                   self._right_alien_fleet()
                    self.fleet_direction *=-1
                    break
 
@@ -141,16 +173,6 @@ class AlienFleet:
                    self.alien_arsenal.fire_bullet(alien.x, alien.y)
 
 
-
-   
-
-                    
-
-    
-     def _drop_alien_fleet(self):
-          for alien in self.fleet:
-               alien.y += self.fleet_drop_speed
-     
      def get_sprites_below (self, target_sprite):
             
             same_horizontal = []
@@ -168,6 +190,14 @@ class AlienFleet:
                 if horizontally_aligned:
                     same_horizontal.append(other)
             return same_horizontal
+   
+
+                    
+
+    
+
+     
+
                         
 
      def update_fleet(self):
@@ -182,12 +212,16 @@ class AlienFleet:
           for alien in self.fleet:
                if self.ship.ship_location == 0:
                  alien.draw_alien(0)
+                 self.location = 0 
                elif self.ship.ship_location == 1:
-                   alien.draw_alien(90)
+                   alien.draw_alien(-90)
+                   self.location = 1
                elif self.ship.ship_location == 2:
                    alien.draw_alien(180)
+                   self.location = 2
                elif self.ship.ship_location == 3:
-                   alien.draw_alien(-90)
+                   alien.draw_alien(90)
+                   self.location = 3
 
                
 
