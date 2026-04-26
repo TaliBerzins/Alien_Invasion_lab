@@ -42,13 +42,15 @@ class Settings:
         self.impact_sound = Path.cwd()/'Assets'/'sound'/ 'impactSound.mp3'
 
         self.bullet_speed = 7
+        self.alien_bullet_speed = 10
         self.bullet_w = 25
         self.bullet_h = 80
         self.bullet_amount = 500
 
         self.alien_file = Path.cwd() / 'Assets' / 'images' / 'enemy_4.png'
         self.fleet_speed = 3
+        self.fleet_sideways_speed = 5
         self.alien_w = 40
         self.alien_h = 40
         self.fleet_direction = 1
-        self.fleet_drop_speed = 40
+        self.fleet_drop_speed = 3

@@ -22,7 +22,7 @@ class AlienInvasion:
     def __init__(self):
         """
         Initailizes game settings, screen, background,
-        clock, the laser sound, and ship object
+        clock, the laser sound, ship object, and fleet group
         
         """
 
@@ -49,7 +49,9 @@ class AlienInvasion:
 
         self.ship = Ship(self,Arsenal(self))
         self.alien_fleet = AlienFleet(self, AlienArsenal(self), self.ship)
+        self.alien_fleet_2 = AlienFleet(self, AlienArsenal(self), self.ship)
         self.alien_fleet.create_fleet() 
+        self.alien_fleet_2.create_fleet_2() 
         
         self.game_active = True
 
@@ -64,7 +66,9 @@ class AlienInvasion:
             if self.game_active:
                 self.ship.update()
                 self.alien_fleet.update_fleet()
+                self.alien_fleet_2.update_fleet()
                 self._check_collisions()
+                
 
 
             self._update_screen()
@@ -92,6 +96,9 @@ class AlienInvasion:
         if self.alien_fleet.check_destroyed_status():
             self._reset_level()
 
+    def check_ship_rotation(self):
+        if self.ship.rotate_instance == True and self.ship.number_of_rotations == 1:
+             self.alien_fleet_2.create_fleet_2()
 
     
     def _check_game_status(self):
@@ -117,6 +124,9 @@ class AlienInvasion:
         self.screen.blit(self.bg,(0,0))
         self.ship.draw()
         self.alien_fleet.draw()
+        if self.ship.number_of_rotations>= 1:
+            self.alien_fleet_2.draw()
+            pygame.display.flip()
         pygame.display.flip()
 
     def _check_events(self):

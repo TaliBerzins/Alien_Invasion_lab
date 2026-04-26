@@ -85,20 +85,20 @@ class AlienBullet(Sprite):
           """
           Updates the bullets position based on its speed"""
           if self.first_shot_instance == 1:
-               self.y += self.settings.bullet_speed
+               self.y += self.settings.alien_bullet_speed
                self.rect.y = self.y
                
           
           elif self.first_shot_instance == 2:
-               self.x -= self.settings.bullet_speed
+               self.x -= self.settings.alien_bullet_speed
                self.rect.x = self.x
           
           elif self.first_shot_instance == 3:
-               self.x += self.settings.bullet_speed
+               self.x += self.settings.alien_bullet_speed
                self.rect.x = self.x
 
           elif self.first_shot_instance == 4:
-               self.y -= self.settings.bullet_speed
+               self.y -= self.settings.alien_bullet_speed
                self.rect.y = self.y
 
      

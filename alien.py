@@ -36,15 +36,16 @@ class Alien(Sprite):
      def update(self):
         
         temp_speed = self.settings.fleet_speed
+        side_ways_temp_speed = self.settings.fleet_sideways_speed 
 
         if self.fleet.ship.ship_location == 0 :
           self.x+=temp_speed * self.fleet.fleet_direction
         elif self.fleet.ship.ship_location == 2:
               self.x-=temp_speed * self.fleet.fleet_direction * -1
         elif self.fleet.ship.ship_location == 1:
-              self.y-=temp_speed * self.fleet.fleet_direction * -1
+              self.y-=side_ways_temp_speed * self.fleet.fleet_direction * -1
         elif self.fleet.ship.ship_location == 3:
-              self.y+=temp_speed * self.fleet.fleet_direction * -1
+              self.y+=side_ways_temp_speed * self.fleet.fleet_direction * -1
         self.rect.x = self.x
         self.rect.y = self.y
   
