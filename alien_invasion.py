@@ -6,6 +6,8 @@ from ship import Ship
 from arsenal import Arsenal
 from alien_fleet import AlienFleet
 from alien_arsenal import AlienArsenal
+from hud import HUD
+from button import Button
 from time import sleep
 """Alien Invasion main game loop
 Tali Berzins
@@ -28,7 +30,7 @@ class AlienInvasion:
 
         pygame.init()
         self.settings = Settings()
-        self.game_stats = GameStats(self.settings.starting_ship_count)
+        self.settings.initialize_dyanmic_settings()
 
         self.screen = pygame.display.set_mode((self.settings.screen_w,self.settings.screen_h))
         pygame.display.set_caption(self.settings.name)
@@ -36,6 +38,9 @@ class AlienInvasion:
         self.bg = pygame.image.load(self.settings.bg_file)
         self.bg = pygame.transform.scale(self.bg,
            (self.settings.screen_w,self.settings.screen_h))
+        
+        self.game_stats = GameStats(self)
+        self.HUD = HUD(self)
 
         self.running = True
         self.clock = pygame.time.Clock()
@@ -56,6 +61,8 @@ class AlienInvasion:
         self.alien_fleet_2.create_fleet_2()
         self.alien_fleet_3.create_fleet_3()
         self.alien_fleet_4.create_fleet_4()
+
+        self.play_button = Button(self, 'Play')
         
         self.game_active = True
 
@@ -132,6 +139,7 @@ class AlienInvasion:
         if collisions or collisions_2 or collisions_3 or collisions_4:
                self.impact_sound.play()
                self.impact_sound.fadeout(250)
+               self.HUD.update_scores()
            
 
         if self.alien_fleet.check_destroyed_status():
@@ -158,6 +166,16 @@ class AlienInvasion:
         self.alien_fleet.fleet.empty()
         self.alien_fleet.create_fleet()
 
+    def restart_game(self):
+        self.settings.initialize_dyanmic_settings()
+        self.game_stats.reset_stats()
+      
+        self.HUD.update_scores()
+        self._reset_level()
+        self.ship._center_ship()
+        self.game_active = True
+        pygame.mouse.set_visible(False)
+
 
     def _update_screen(self):
         """
@@ -169,6 +187,13 @@ class AlienInvasion:
 
         self.ship.draw()
         self.alien_fleet.draw()
+        self.HUD.draw()
+
+        if not self.game_active:
+            self.play_button.draw()
+            pygame.mouse.set_visible(True)
+        pygame.display.flip()
+        
         if self.ship.has_rotated_right:
             self.alien_fleet_4.draw() 
              
@@ -195,6 +220,7 @@ class AlienInvasion:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
+                self.game_stats.save_scores()
                 pygame.quit()
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
@@ -202,7 +228,13 @@ class AlienInvasion:
 
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                self._check_button_click()
 
+    def _check_button_click(self):
+        mouse_pos = pygame.mouse.get_pos()
+        if self.play_button.check_clicked(mouse_pos):
+            self.restart_game()
             
 
     def _check_keyup_events(self, event):
@@ -229,6 +261,7 @@ class AlienInvasion:
                self.laser_sound.fadeout(250)
         elif event.key == pygame.K_q:
             self.running = False
+            self.game_stats.save_scores()
             pygame.quit()
             sys.exit()
 
