@@ -63,6 +63,7 @@ class Ship:
         self.number_of_rotations = 0
         self.number_of_left_rotations = 0
         self.number_of_right_rotations = 0
+        self.number_of_top_rotations = 0
         self.rotate_instance = False
 
     def _center_ship(self):
@@ -111,6 +112,7 @@ class Ship:
             self.ship_location = 2
             self.has_rotated_top = True
             self.number_of_rotations+=1
+            self.number_of_top_rotations += 1
             self.rotate_instance = True
            
             
@@ -169,6 +171,7 @@ class Ship:
             self.x += temp_speed
             self.ship_location = 2
             self.number_of_rotations += 1  
+            self.number_of_top_rotations += 1
             self.has_rotated_top = True  
             self.rotate_instance = True
        
