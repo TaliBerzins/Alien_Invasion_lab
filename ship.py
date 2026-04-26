@@ -57,8 +57,13 @@ class Ship:
         self.y_rect = float(self.rect.y)
         self.arsenal = arsenal
         self.ship_location = 0
-        self.rotate_instance = False
+        self.has_rotated_left = False
+        self.has_rotated_right = False
+        self.has_rotated_top = False
         self.number_of_rotations = 0
+        self.number_of_left_rotations = 0
+        self.number_of_right_rotations = 0
+        self.rotate_instance = False
 
     def _center_ship(self):
         self.rotate_ship(0)
@@ -83,7 +88,7 @@ class Ship:
         if self.moving_right and self.x>0 and self.y_rect == 720 and self.x<1160 and self.rect.width != 80:
             self.x+=temp_speed
             self.ship_location = 0
-            self.rotate_instance = False
+        
             
 
         if self.moving_right and self.x>=1160 and self.y_rect == 720 and self.rect.width == 40:
@@ -91,17 +96,24 @@ class Ship:
             self.y_rect+= 35
             self.x-= 40
             self.ship_location = 3
-            self.rotate_instance = True
+            self.has_rotated_right = True
             self.number_of_rotations += 1
+            self.number_of_right_rotations += 1 
+            self.rotate_instance= True
         if self.moving_right and self.x == 1120 and self.y_rect!= 0 and self.rect.width == 80:
             self.y_rect-= temp_speed
             self.rotate_instance = False
+            
 
         if self.moving_right and self.y_rect <= 0 and self.x == 1120 and self.rect.width == 80:
             self.rotate_ship(180)
             self.x += 40
             self.ship_location = 2
+            self.has_rotated_top = True
+            self.number_of_rotations+=1
             self.rotate_instance = True
+           
+            
         if self.moving_right and self.y_rect == 0 and self.x != 0:
             self.x -= temp_speed
             self.rotate_instance = False
@@ -111,11 +123,15 @@ class Ship:
             self.rotate_ship(-90)
             self.y_rect += temp_speed
             self.ship_location = 1
-            self.rotate_instance = True
+            self.has_rotated_left = True
             self.number_of_rotations += 1
+            self.number_of_left_rotations += 1 
+            self.rotate_instance = True
+
         if self.moving_right and self.x == 0 and self.y_rect != 0:
             self.y_rect += temp_speed
             self.rotate_instance = False
+        
 
         if self.moving_right and self.y_rect >= 760:
             self.rotate_ship(0)
@@ -123,6 +139,7 @@ class Ship:
             self.y_rect-= 40
             self.ship_location = 0
             self.rotate_instance = True
+          
             self.number_of_rotations += 1
         
 
@@ -132,39 +149,55 @@ class Ship:
         if self.moving_left and 1160>self.x>0 and self.y_rect == 720 and self.rect.width == 40 :
             self.x-=temp_speed
             self.ship_location = 0
-            
+            self.rotate_instance = False
             
         if self.moving_left and self.x<=0 and self.y_rect == 720 and self.rect.width == 40:
             self.rotate_ship(-90)
             self.y_rect+=35
             self.ship_location = 1
             self.number_of_rotations += 1
+            self.number_of_left_rotations += 1 
+            self.has_rotated_left = True
+            self.rotate_instance = True
+       
         if self.moving_left and self.y_rect<= 760 and self.y_rect != 0 and self.x == 0:
             self.y_rect-= temp_speed
+            self.rotate_instance = False
 
         if self.moving_left and self.y_rect <= 0 and self.x == 0:
             self.rotate_ship(180)
             self.x += temp_speed
             self.ship_location = 2
-            self.number_of_rotations += 1           
+            self.number_of_rotations += 1  
+            self.has_rotated_top = True  
+            self.rotate_instance = True
+       
         if self.moving_left and self.y_rect == 0 and self.x != 0:
             self.x += temp_speed
+            self.rotate_instance = False
 
         if self.moving_left and self.x >= 1160 and self.y_rect == 0:
             self.rotate_ship(90)
             self.y_rect += temp_speed
             self.x -= 40
             self.ship_location = 3
-            self.number_of_rotations += 1            
+            self.number_of_rotations += 1   
+            self.number_of_right_rotations += 1 
+            self.has_rotated_right = True
+            self.rotate_instance = True
+
+              
         if self.moving_left and self.x == 1120 and self.y_rect != 0 and self.rect.width ==80:
             self.y_rect += temp_speed
+            self.rotate_instance = False
 
         if self.moving_left and self.y_rect >= 760:
             self.rotate_ship(0)
             self.x += 35
             self.y_rect-= 40
             self.ship_location = 0
-            self.number_of_rotations += 1  
+            self.number_of_rotations += 1 
+            self.rotate_instance = True
 
 
         self.rect.x = self.x

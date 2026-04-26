@@ -50,8 +50,10 @@ class AlienInvasion:
         self.ship = Ship(self,Arsenal(self))
         self.alien_fleet = AlienFleet(self, AlienArsenal(self), self.ship)
         self.alien_fleet_2 = AlienFleet(self, AlienArsenal(self), self.ship)
+        self.alien_fleet_4 = AlienFleet(self, AlienArsenal(self), self.ship)
         self.alien_fleet.create_fleet() 
         self.alien_fleet_2.create_fleet_2() 
+        self.alien_fleet_4.create_fleet_4()
         
         self.game_active = True
 
@@ -67,6 +69,7 @@ class AlienInvasion:
                 self.ship.update()
                 self.alien_fleet.update_fleet()
                 self.alien_fleet_2.update_fleet()
+                self.alien_fleet_4.update_fleet()
                 self._check_collisions()
                 
 
@@ -97,8 +100,10 @@ class AlienInvasion:
             self._reset_level()
 
     def check_ship_rotation(self):
-        if self.ship.rotate_instance == True and self.ship.number_of_rotations == 1:
+        if self.ship.has_rotated_left == True and self.ship.number_of_rotations == 1:
              self.alien_fleet_2.create_fleet_2()
+        elif self.ship.has_rotated_right == True and self.ship.ship_location == 3:
+             self.alien_fleet_4.create_fleet_4() 
 
     
     def _check_game_status(self):
@@ -122,11 +127,27 @@ class AlienInvasion:
         """
 
         self.screen.blit(self.bg,(0,0))
+
         self.ship.draw()
         self.alien_fleet.draw()
-        if self.ship.number_of_rotations>= 1:
+        if self.ship.rotate_instance == True and self.ship.has_rotated_right and self.ship.number_of_right_rotations<=0:
+            self.alien_fleet_4.create_fleet_4()
+       
+        # self.alien_fleet_2.draw()
+        elif self.ship.rotate_instance == True and self.ship.has_rotated_left and self.ship.number_of_left_rotations<=0:
+            self.alien_fleet_2.create_fleet_2()
+          
+        elif self.ship.has_rotated_right and self.ship.has_rotated_left:
+            self.alien_fleet_4.draw()     
             self.alien_fleet_2.draw()
-            pygame.display.flip()
+        elif self.ship.has_rotated_left and not self.ship.has_rotated_right:
+            self.alien_fleet_2.draw()    
+        elif self.ship.has_rotated_right and not self.ship.has_rotated_left:
+            self.alien_fleet_4.draw()    
+                 
+        
+         
+        
         pygame.display.flip()
 
     def _check_events(self):

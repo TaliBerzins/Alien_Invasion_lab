@@ -51,7 +51,7 @@ class AlienFleet:
          for row in range(0,fleet_h,2):
               for col in range(fleet_w):
                 current_x = alien_w * col + x_offset
-                current_y = alien_h * row + 40
+                current_y = alien_h * row + y_offset
                 if col% 2 == 0 or col % ran_1 == 0 or col % ran_2 == 0 or col % ran_3 == 0 or col % ran_4 == 0:
                     continue
                 
@@ -64,11 +64,12 @@ class AlienFleet:
               ran_4 = (num_of_aliens_gen.randint(2,10))
 
      def calculate_offset_2(self, alien_w, alien_h, screen_h, fleet_w, fleet_h):
-         half_screen = self.settings.screen_w//2
+         full_screen_h = self.settings.screen_h
+         full_screen_w = self.settings.screen_w
          fleet_horizontal_space = fleet_w * alien_w
          fleet_vertical_space = fleet_h * alien_h
-         x_offset = int((half_screen-fleet_horizontal_space)//2)
-         y_offset = int((screen_h-fleet_vertical_space)//2)
+         y_offset = ((full_screen_h - fleet_vertical_space)/2)
+         x_offset = ((full_screen_w-fleet_horizontal_space))
          return x_offset,y_offset
 
 
@@ -87,6 +88,68 @@ class AlienFleet:
               fleet_h -=1
         
          return int(fleet_w), int(fleet_h)
+     
+     def create_fleet_4(self):
+         alien_w = self.settings.alien_w
+         alien_h = self.settings.alien_h
+         screen_h = self.settings.screen_h
+         screen_w = self.settings.screen_w
+
+         fleet_w , fleet_h= self.calculate_fleet_size_4(alien_w, screen_w, alien_h, screen_h)
+
+         x_offset, y_offset = self.calculate_offset_4(alien_w, alien_h, screen_w, fleet_w, fleet_h)
+         self._create_rectangle_fleet_4(alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset)
+
+     def _create_rectangle_fleet_4(self, alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset):
+         num_of_aliens_gen = random.SystemRandom()
+         ran_1 = (num_of_aliens_gen.randint(2,10))
+         ran_2 = (num_of_aliens_gen.randint(2,10))
+         ran_3 = (num_of_aliens_gen.randint(2,10))
+         ran_4 = (num_of_aliens_gen.randint(2,10))
+         
+
+         for row in range(0,fleet_h,2):
+              for col in range(fleet_w):
+                current_x = alien_w * col + x_offset
+                current_y = alien_h * row + 40
+                if col% 2 == 0 or col % ran_1 == 0 or col % ran_2 == 0 or col % ran_3 == 0 or col % ran_4 == 0:
+                    continue
+                
+
+                self._create_alien(current_x, current_y)
+
+              ran_1 = (num_of_aliens_gen.randint(2,10))
+              ran_2 = (num_of_aliens_gen.randint(2,10))
+              ran_3 = (num_of_aliens_gen.randint(2,10))
+              ran_4 = (num_of_aliens_gen.randint(2,10))
+
+     def calculate_offset_4(self, alien_w, alien_h, screen_h, fleet_w, fleet_h):
+         full_screen_h = self.settings.screen_h
+         full_screen_w = self.settings.screen_w
+         fleet_horizontal_space = fleet_w * alien_w
+         fleet_vertical_space = fleet_h * alien_h
+         y_offset = ((full_screen_h - fleet_vertical_space)/2)
+         x_offset = alien_w/2
+         return x_offset,y_offset
+
+
+     def calculate_fleet_size_4(self, alien_w, screen_w, alien_h, screen_h):
+         fleet_w = 4
+         fleet_h = (screen_h/alien_h)
+
+         if fleet_w % 2 == 0:
+              fleet_w -=2
+         else:
+              fleet_w -=1
+
+         if fleet_h %2 ==0:
+              fleet_h -=2
+         else:
+              fleet_h -=1
+        
+         return int(fleet_w), int(fleet_h)
+     
+
      
 
 
