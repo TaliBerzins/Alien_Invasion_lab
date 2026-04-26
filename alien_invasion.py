@@ -85,10 +85,32 @@ class AlienInvasion:
 
     def _check_collisions(self):
         #check collisions for ship
-        if self.ship.check_collisions(self.alien_fleet.fleet):
-           # or self.alien_fleet.check_fleet_bottom():
-            
+        if  self.ship.check_collisions(self.alien_fleet.fleet) or self.ship.check_collisions(self.alien_fleet.alien_arsenal.alien_arsenal):
             self._check_game_status()
+        if self.ship.has_rotated_top: 
+             if self.ship.check_collisions(self.alien_fleet_3.fleet):
+                 self._check_game_status()
+                 if self.ship.check_collisions(self.alien_fleet_3.alien_arsenal.alien_arsenal):
+                  self.alien_fleet_3.alien_arsenal.alien_arsenal.empty()  
+                  self._check_game_status()
+        if self.ship.has_rotated_left:
+             if self.ship.check_collisions(self.alien_fleet_2.fleet):
+                 self._check_game_status()
+             if self.ship.check_collisions(self.alien_fleet_2.alien_arsenal.alien_arsenal):
+                 self.alien_fleet_2.alien_arsenal.alien_arsenal.empty()  
+                 self._check_game_status()
+        if self.ship.has_rotated_right:
+             if self.ship.check_collisions(self.alien_fleet_4.fleet):
+                 self._check_game_status()
+                                    
+             if self.ship.check_collisions(self.alien_fleet_4.alien_arsenal.alien_arsenal):
+                self.alien_fleet_4.alien_arsenal.alien_arsenal.empty()  
+                self._check_game_status()
+
+
+
+
+        
             #the alien fleet to reset
             #ship recenter
             #subtract one life
@@ -96,8 +118,18 @@ class AlienInvasion:
         
         
         #check collisions for projectiles and aliens
+        collisions_2 = False
+        collisions_3 = False
+        collisions_4 = False
         collisions = self.alien_fleet.check_collisions(self.ship.arsenal.arsenal)
-        if collisions:
+        if self.ship.has_rotated_left:
+         collisions_2 = self.alien_fleet_2.check_collisions(self.ship.arsenal.arsenal)
+        if self.ship.has_rotated_top:
+            collisions_3 = self.alien_fleet_3.check_collisions(self.ship.arsenal.arsenal)
+        if self.ship.has_rotated_right:
+            collisions_4 = self.alien_fleet_4.check_collisions(self.ship.arsenal.arsenal)
+        
+        if collisions or collisions_2 or collisions_3 or collisions_4:
                self.impact_sound.play()
                self.impact_sound.fadeout(250)
            
