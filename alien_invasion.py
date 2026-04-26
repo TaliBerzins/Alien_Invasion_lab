@@ -64,7 +64,7 @@ class AlienInvasion:
 
         self.play_button = Button(self, 'Play')
         
-        self.game_active = True
+        self.game_active = False
 
     def run_game(self):
         """
@@ -139,6 +139,7 @@ class AlienInvasion:
         if collisions or collisions_2 or collisions_3 or collisions_4:
                self.impact_sound.play()
                self.impact_sound.fadeout(250)
+               self.game_stats.update(collisions)
                self.HUD.update_scores()
            
 
@@ -192,7 +193,7 @@ class AlienInvasion:
         if not self.game_active:
             self.play_button.draw()
             pygame.mouse.set_visible(True)
-        pygame.display.flip()
+         
         
         if self.ship.has_rotated_right:
             self.alien_fleet_4.draw() 
