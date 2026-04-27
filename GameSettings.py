@@ -35,7 +35,7 @@ class Settings:
         self.ship_file = Path.cwd()/'Assets'/'images'/'ship2(no bg).png'
         self.ship_w = 40
         self.ship_h = 80
-        self.difficulty_scale = 1.1
+        self.difficulty_scale = 1.5
         self.scores_file = Path.cwd() / 'Assets' / 'file' / 'scores.json'
         
 
@@ -67,7 +67,7 @@ class Settings:
           self.alien_bullet_speed = 5
           self.starting_ship_count = 1
           self.fleet_speed = 3
-          self.fleet_drop_speed = 80
+          self.fleet_drop_speed = 40
           self.bullet_w = 25
           self.bullet_h = 80
           self.bullet_amount = 20

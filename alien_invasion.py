@@ -61,7 +61,7 @@ class AlienInvasion:
         self.alien_fleet_2.create_fleet_2()
         self.alien_fleet_3.create_fleet_3()
         self.alien_fleet_4.create_fleet_4()
-        self.list_of_removed_aliens = []
+       
 
         self.play_button = Button(self, 'Play')
         
@@ -155,6 +155,7 @@ class AlienInvasion:
             self.game_stats.update_level()
             self.HUD.update_level()
             self._reset_level()
+            self.settings.increase_difficulty()
 
     # def check_ship_rotation(self):
     #     if self.ship.has_rotated_left == True and self.ship.number_of_rotations == 1:
