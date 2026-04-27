@@ -85,6 +85,7 @@ class AlienInvasion:
                   self.alien_fleet_4.update_fleet()
                 self._check_collisions()
                 
+                
 
 
             self._update_screen()
@@ -136,14 +137,24 @@ class AlienInvasion:
         if self.ship.has_rotated_right:
             collisions_4 = self.alien_fleet_4.check_collisions(self.ship.arsenal.arsenal)
         
+        self.game_stats.update_negative_score(self.alien_fleet.remove_aliens_offscreen())
+        self.game_stats.update_negative_score(self.alien_fleet_2.remove_aliens_offscreen())
+        self.game_stats.update_negative_score(self.alien_fleet_3.remove_aliens_offscreen())
+        self.game_stats.update_negative_score(self.alien_fleet_4.remove_aliens_offscreen())
+
         if collisions or collisions_2 or collisions_3 or collisions_4:
                self.impact_sound.play()
                self.impact_sound.fadeout(250)
                self.game_stats.update(collisions)
                self.HUD.update_scores()
-           
 
+
+
+
+    
         if self.alien_fleet.check_destroyed_status():
+            self.game_stats.update_level()
+            self.HUD.update_level()
             self._reset_level()
 
     # def check_ship_rotation(self):

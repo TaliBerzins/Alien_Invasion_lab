@@ -67,7 +67,7 @@ class Settings:
           self.alien_bullet_speed = 5
           self.starting_ship_count = 1
           self.fleet_speed = 3
-          self.fleet_drop_speed = 2
+          self.fleet_drop_speed = 80
           self.bullet_w = 25
           self.bullet_h = 80
           self.bullet_amount = 20

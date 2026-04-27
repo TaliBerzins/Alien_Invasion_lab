@@ -23,6 +23,8 @@ class AlienFleet:
           self.fleet_drop_speed = self.settings.fleet_drop_speed
           self.alien_arsenal = alien_arsenal
           self.ship = ship
+          self.list_of_removed_aliens = []
+          self.alien_position = 0
           
 
 
@@ -34,6 +36,7 @@ class AlienFleet:
          alien_h = self.settings.alien_h
          screen_h = self.settings.screen_h
          screen_w = self.settings.screen_w
+         self.alien_position = 1
 
          fleet_w , fleet_h= self.calculate_fleet_size_2(alien_w, screen_w, alien_h, screen_h)
 
@@ -94,6 +97,7 @@ class AlienFleet:
          alien_h = self.settings.alien_h
          screen_h = self.settings.screen_h
          screen_w = self.settings.screen_w
+         self.alien_position = 4
 
          fleet_w , fleet_h= self.calculate_fleet_size_4(alien_w, screen_w, alien_h, screen_h)
 
@@ -156,6 +160,7 @@ class AlienFleet:
          alien_h = self.settings.alien_h
          screen_h = self.settings.screen_h
          screen_w = self.settings.screen_w
+         self.alien_position = 3
 
          fleet_w , fleet_h= self.calculate_fleet_size_3(alien_w, screen_w, alien_h, screen_h)
 
@@ -219,6 +224,7 @@ class AlienFleet:
           alien_h = self.settings.alien_h
           screen_h = self.settings.screen_h
           screen_w = self.settings.screen_w
+          self.alien_position = 1
 
           fleet_w , fleet_h= self.calculate_fleet_size(alien_w, screen_w, alien_h, screen_h)
 
@@ -561,6 +567,7 @@ class AlienFleet:
           elif self.ship.ship_location == 3:
               self.check_alien_shoots_right()
           self.alien_arsenal.update_alien_arsenal()
+      
 
      def draw(self):
           self.alien_arsenal.draw()
@@ -593,6 +600,25 @@ class AlienFleet:
                  return True
           return False
      
+     def remove_aliens_offscreen(self):
+          """Removes each bullet that is off screen from arsenal
+          """
+          alien: Alien
+          for alien in self.fleet.copy():
+               if self.alien_position == 1 and alien.y>= 800:
+                     self.fleet.remove(alien)
+                     self.list_of_removed_aliens.append(alien)
+               if self.alien_position == 2 and alien.x<=0:
+                   self.fleet.remove(alien)
+                   self.list_of_removed_aliens.append(alien)
+               if self.alien_position == 3 and alien.y<=0:
+                   self.fleet.remove(alien)
+                   self.list_of_removed_aliens.append(alien)   
+               if self.alien_position == 4 and alien.x>=1200:
+                   self.fleet.remove(alien)
+                   self.list_of_removed_aliens.append(alien) 
+          return self.list_of_removed_aliens
+                  
      def check_destroyed_status(self):
           return not self.fleet
      
