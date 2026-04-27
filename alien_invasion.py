@@ -183,6 +183,7 @@ class AlienInvasion:
     def _reset_level(self):
         """Empties the sprite groups and recreates them"""
         self.ship.arsenal.arsenal.empty()
+        self.alien_fleet.alien_arsenal.alien_arsenal.empty()
         self.alien_fleet.fleet.empty()
         self.alien_fleet.create_fleet()
 
