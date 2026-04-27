@@ -35,7 +35,17 @@ class Ship:
     #Initalizer Method
     def __init__ (self, game: 'AlienInvasion', arsenal : 'Arsenal'):
 
-        """Sets up the initial values for the attributes of ship class"""
+        """Sets up the initial values for the attributes of ship class
+        Parameters: 
+        arsenal, the arsenal type is imported to make an arsenal for the ship
+        game, game is imported to reference the attributes and objects made in game
+        Attributes: self.ship_location: Tracks the location of the ship by assigning it
+        either 0,1,2, or 3.  0 is for a non rotated ship 1 is for a left rotated ship, 2 top rotated, 3 right rotated
+        self.moving_right, left: Defines which way the ship is moving according to the keydown events
+        in main game
+        self.has_rotated_left, right, top: Evaluates to true for each variable if the ship has rotated
+        for its respective rotation
+        """
         self.game = game
         self.settings = game.settings
         self.screen = game.screen
@@ -60,13 +70,12 @@ class Ship:
         self.has_rotated_left = False
         self.has_rotated_right = False
         self.has_rotated_top = False
-        self.number_of_rotations = 0
-        self.number_of_left_rotations = 0
-        self.number_of_right_rotations = 0
-        self.number_of_top_rotations = 0
-        self.rotate_instance = False
+
+    
+        
 
     def _center_ship(self):
+        """Centers the ship and places it at the midbottom of the screen"""
         self.rotate_ship(0)
         self.rect.midbottom = self.boundaries.midbottom 
         self.x = float(self.rect.x)
@@ -81,7 +90,7 @@ class Ship:
 
     def update_ship_movement(self):
         """Updates the ships and its rectangles 
-        position according to its speed """
+        position according to its speed and its rotation """
         temp_speed = 5
 
         #Conditions for moving right
@@ -98,12 +107,10 @@ class Ship:
             self.x-= 40
             self.ship_location = 3
             self.has_rotated_right = True
-            self.number_of_rotations += 1
-            self.number_of_right_rotations += 1 
-            self.rotate_instance= True
+  
         if self.moving_right and self.x == 1120 and self.y_rect!= 0 and self.rect.width == 80:
             self.y_rect-= temp_speed
-            self.rotate_instance = False
+            
             
 
         if self.moving_right and self.y_rect <= 0 and self.x == 1120 and self.rect.width == 80:
@@ -111,14 +118,13 @@ class Ship:
             self.x += 40
             self.ship_location = 2
             self.has_rotated_top = True
-            self.number_of_rotations+=1
-            self.number_of_top_rotations += 1
-            self.rotate_instance = True
+
+            
            
             
         if self.moving_right and self.y_rect == 0 and self.x != 0:
             self.x -= temp_speed
-            self.rotate_instance = False
+            
             self.number_of_rotations += 1
 
         if self.moving_right and self.x <= 0 and self.y_rect == 0:
@@ -126,13 +132,12 @@ class Ship:
             self.y_rect += temp_speed
             self.ship_location = 1
             self.has_rotated_left = True
-            self.number_of_rotations += 1
-            self.number_of_left_rotations += 1 
-            self.rotate_instance = True
+
+            
 
         if self.moving_right and self.x == 0 and self.y_rect != 0:
             self.y_rect += temp_speed
-            self.rotate_instance = False
+            
         
 
         if self.moving_right and self.y_rect >= 760:
@@ -140,9 +145,9 @@ class Ship:
             self.x += temp_speed
             self.y_rect-= 40
             self.ship_location = 0
-            self.rotate_instance = True
+            
           
-            self.number_of_rotations += 1
+
         
 
         
@@ -151,56 +156,50 @@ class Ship:
         if self.moving_left and 1160>self.x>0 and self.y_rect == 720 and self.rect.width == 40 :
             self.x-=temp_speed
             self.ship_location = 0
-            self.rotate_instance = False
+            
             
         if self.moving_left and self.x<=0 and self.y_rect == 720 and self.rect.width == 40:
             self.rotate_ship(-90)
             self.y_rect+=35
             self.ship_location = 1
-            self.number_of_rotations += 1
-            self.number_of_left_rotations += 1 
             self.has_rotated_left = True
-            self.rotate_instance = True
+            
        
         if self.moving_left and self.y_rect<= 760 and self.y_rect != 0 and self.x == 0:
             self.y_rect-= temp_speed
-            self.rotate_instance = False
+            
 
         if self.moving_left and self.y_rect <= 0 and self.x == 0:
             self.rotate_ship(180)
             self.x += temp_speed
             self.ship_location = 2
-            self.number_of_rotations += 1  
-            self.number_of_top_rotations += 1
             self.has_rotated_top = True  
-            self.rotate_instance = True
+            
        
         if self.moving_left and self.y_rect == 0 and self.x != 0:
             self.x += temp_speed
-            self.rotate_instance = False
+            
 
         if self.moving_left and self.x >= 1160 and self.y_rect == 0:
             self.rotate_ship(90)
             self.y_rect += temp_speed
             self.x -= 40
             self.ship_location = 3
-            self.number_of_rotations += 1   
-            self.number_of_right_rotations += 1 
             self.has_rotated_right = True
-            self.rotate_instance = True
+            
 
               
         if self.moving_left and self.x == 1120 and self.y_rect != 0 and self.rect.width ==80:
             self.y_rect += temp_speed
-            self.rotate_instance = False
+            
 
         if self.moving_left and self.y_rect >= 760:
             self.rotate_ship(0)
             self.x += 35
             self.y_rect-= 40
             self.ship_location = 0
-            self.number_of_rotations += 1 
-            self.rotate_instance = True
+
+            
 
 
         self.rect.x = self.x
@@ -220,12 +219,14 @@ class Ship:
         return self.arsenal.fire_bullet()
     
     def rotate_ship(self,angle):
+            """Rotates the ship according to the angle passed in"""
         
             self.image = pygame.transform.rotate(self.original_image,angle)
             self.rect = self.image.get_rect(center=self.rect.center)
             self.screen.blit(self.image,self.rect)
 
     def check_collisions(self, other_group):
+        """Checks collisions between the ship and the sprite group passed in"""
         if pygame.sprite.spritecollideany(self, other_group):
             self._center_ship()
             return True

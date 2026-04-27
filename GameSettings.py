@@ -27,6 +27,7 @@ class Settings:
     """
 
     def __init__(self):
+        """Initalizes the attributes and objects of the settings class"""
         self.name: str = "Alien Invasion"
         self.screen_w = 1200
         self.screen_h = 800
@@ -62,6 +63,7 @@ class Settings:
         self.font_file = Path.cwd() / 'Assets' / 'Fonts' / 'Silkscreen' / 'Silkscreen-Bold.ttf'
         
     def initialize_dyanmic_settings(self):
+          """Initializes settings that can be changed throughout the game"""
           self.fleet_sideways_speed = 5
           self.bullet_speed = 10
           self.alien_bullet_speed = 5
@@ -76,6 +78,7 @@ class Settings:
 
 
     def increase_difficulty(self):
+         """Increases the speed of ship, bullet, and fleet by the difficulty scale"""
          self.ship_speed *= self.difficulty_scale
          self.bullet_speed *= self.difficulty_scale
          self.fleet_speed *= self.difficulty_scale

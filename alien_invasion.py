@@ -70,7 +70,8 @@ class AlienInvasion:
     def run_game(self):
         """
         Runs the game for
-        each tick of the clock
+        each tick of the clock.
+        Updates ship, fleet, and checks for collisions
         """
         #Game Loop
         while self.running:
@@ -95,6 +96,10 @@ class AlienInvasion:
 
 
     def _check_collisions(self):
+        """Checks for collisions between the ship and the alien fleets and their 
+        respective arsenals.  Updates ship lives and game status
+        by calling check game status method.
+        Updates the hud and game scores accordingly"""
         #check collisions for ship
         if  self.ship.check_collisions(self.alien_fleet.fleet) or self.ship.check_collisions(self.alien_fleet.alien_arsenal.alien_arsenal):
             self._check_game_status()
@@ -165,6 +170,8 @@ class AlienInvasion:
 
     
     def _check_game_status(self):
+        """Updates number of lives left in the game, resets level if number of lives is more than zero
+        stops the game is number of lives is less than 0"""
         if self.game_stats.ships_left > 0:
             self.game_stats.ships_left -= 1
             self._reset_level()
@@ -174,11 +181,14 @@ class AlienInvasion:
 
 
     def _reset_level(self):
+        """Empties the sprite groups and recreates them"""
         self.ship.arsenal.arsenal.empty()
         self.alien_fleet.fleet.empty()
         self.alien_fleet.create_fleet()
 
     def restart_game(self):
+        """Restarts the game at its level and updates scores, centers ship
+        """
         self.settings.initialize_dyanmic_settings()
         self.game_stats.reset_stats()
       
@@ -191,7 +201,7 @@ class AlienInvasion:
 
     def _update_screen(self):
         """
-        Updates the screen
+        Updates the screen by drawing ship, alien fleets, HUD
         """
 
 

@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
      from alien_invasion import AlienInvasion
      from alien_arsenal import AlienArsenal
-     from ship import Ship
+     
 
 
 
@@ -56,6 +56,12 @@ class AlienFleet:
 
     
      def create_fleet_2(self):
+         """Creates an alien fleet when the ship is rotated to the left side of the screen
+         Attributes:
+         fleet_w: How many ships fit in one row of the fleet
+         fleet_h: How many ships fit in one column of the fleet
+         x_offset: Horiztonal space added before the fleet is drawn
+         y_offset: Vertical space added before the fleet is drawn"""
          alien_w = self.settings.alien_w
          alien_h = self.settings.alien_h
          screen_h = self.settings.screen_h
@@ -68,6 +74,13 @@ class AlienFleet:
          self._create_rectangle_fleet_2(alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset)
 
      def _create_rectangle_fleet_2(self, alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset):
+         """Adds aliens to the fleet by the relative position current_x, current_y
+          Attributes:
+        current_x: The horizontal position of where the alien will be created
+        current_y: The vertical position of where the alien will be created
+        ran_1, 2, 3, 4: Random numbers generated to leave out alien generations at these random positions
+        If current_x or y divided by ran_1 ,2... gives remainder 0, alien won't be created
+              """
          num_of_aliens_gen = random.SystemRandom()
          ran_1 = (num_of_aliens_gen.randint(2,10))
          ran_2 = (num_of_aliens_gen.randint(2,10))
@@ -91,6 +104,12 @@ class AlienFleet:
               ran_4 = (num_of_aliens_gen.randint(2,10))
 
      def calculate_offset_2(self, alien_w, alien_h, screen_h, fleet_w, fleet_h):
+         """Caculates the offset or amount of space before the alien fleet is created both horizontally
+         and vertically
+         Attributes:
+         fleet_horizontal_space: How much space the fleet takes up horizontally
+         fleet_vertical_space: How much space the fleet takes up vertically
+         """
          full_screen_h = self.settings.screen_h
          full_screen_w = self.settings.screen_w
          fleet_horizontal_space = fleet_w * alien_w
@@ -101,6 +120,12 @@ class AlienFleet:
 
 
      def calculate_fleet_size_2(self, alien_w, screen_w, alien_h, screen_h):
+         """Calculates how many aliens will be created in the fleet, with fleet_w being
+         the number of aliens in a row, and fleet_h being number of aliens in a column
+         Attributes: 
+         fleet_w : number of aliens in a row
+         fleet_h: Number of aliens in a column
+         """
          fleet_w = 4
          fleet_h = (screen_h/alien_h)
 
@@ -117,6 +142,12 @@ class AlienFleet:
          return int(fleet_w), int(fleet_h)
      
      def create_fleet_4(self):
+         """Creates an alien fleet when the ship is rotated to the right side of the screen
+         Attributes:
+         fleet_w: How many ships fit in one row of the fleet
+         fleet_h: How many ships fit in one column of the fleet
+         x_offset: Horiztonal space added before the fleet is drawn
+         y_offset: Vertical space added before the fleet is drawn"""
          alien_w = self.settings.alien_w
          alien_h = self.settings.alien_h
          screen_h = self.settings.screen_h
@@ -129,6 +160,13 @@ class AlienFleet:
          self._create_rectangle_fleet_4(alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset)
 
      def _create_rectangle_fleet_4(self, alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset):
+         """Adds aliens to the fleet by the relative position current_x, current_y
+          Attributes:
+         current_x: The horizontal position of where the alien will be created
+         current_y: The vertical position of where the alien will be created
+         ran_1, 2, 3, 4: Random numbers generated to leave out alien generations at these random positions
+         If current_x or y divided by ran_1 ,2... gives remainder 0, alien won't be created"""
+         
          num_of_aliens_gen = random.SystemRandom()
          ran_1 = (num_of_aliens_gen.randint(2,10))
          ran_2 = (num_of_aliens_gen.randint(2,10))
@@ -152,6 +190,12 @@ class AlienFleet:
               ran_4 = (num_of_aliens_gen.randint(2,10))
 
      def calculate_offset_4(self, alien_w, alien_h, screen_h, fleet_w, fleet_h):
+         """Caculates the offset or amount of space before the alien fleet is created both horizontally
+         and vertically
+         Attributes:
+         fleet_horizontal_space: How much space the fleet takes up horizontally
+         fleet_vertical_space: How much space the fleet takes up vertically
+         """
          full_screen_h = self.settings.screen_h
          full_screen_w = self.settings.screen_w
          fleet_horizontal_space = fleet_w * alien_w
@@ -162,6 +206,13 @@ class AlienFleet:
 
 
      def calculate_fleet_size_4(self, alien_w, screen_w, alien_h, screen_h):
+         """Adds aliens to the fleet by the relative position current_x, current_y
+          Attributes:
+        current_x: The horizontal position of where the alien will be created
+        current_y: The vertical position of where the alien will be created
+        ran_1, 2, 3, 4: Random numbers generated to leave out alien generations at these random positions
+        If current_x or y divided by ran_1 ,2... gives remainder 0, alien won't be created
+              """
          fleet_w = 4
          fleet_h = (screen_h/alien_h)
 
@@ -180,6 +231,12 @@ class AlienFleet:
 
      
      def create_fleet_3(self):
+         """Creates an alien fleet when the ship is rotated to the top side of the screen
+         Attributes:
+         fleet_w: How many ships fit in one row of the fleet
+         fleet_h: How many ships fit in one column of the fleet
+         x_offset: Horiztonal space added before the fleet is drawn
+         y_offset: Vertical space added before the fleet is drawn"""
          alien_w = self.settings.alien_w
          alien_h = self.settings.alien_h
          screen_h = self.settings.screen_h
@@ -192,6 +249,12 @@ class AlienFleet:
          self._create_rectangle_fleet_3(alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset)
 
      def _create_rectangle_fleet_3(self, alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset):
+         """Adds aliens to the fleet by the relative position current_x, current_y
+          Attributes:
+        current_x: The horizontal position of where the alien will be created
+        current_y: The vertical position of where the alien will be created
+        ran_1, 2, 3, 4: Random numbers generated to leave out alien generations at these random positions
+        If current_x or y divided by ran_1 ,2... gives remainder 0, alien won't be created"""
          num_of_aliens_gen = random.SystemRandom()
          ran_1 = (num_of_aliens_gen.randint(2,10))
          ran_2 = (num_of_aliens_gen.randint(2,10))
@@ -215,6 +278,12 @@ class AlienFleet:
               ran_4 = (num_of_aliens_gen.randint(2,10))
 
      def calculate_offset_3(self, alien_w, alien_h, screen_h, fleet_w, fleet_h):
+         """Caculates the offset or amount of space before the alien fleet is created both horizontally
+         and vertically
+         Attributes:
+         fleet_horizontal_space: How much space the fleet takes up horizontally
+         fleet_vertical_space: How much space the fleet takes up vertically
+         """
          full_screen_h = self.settings.screen_h
          full_screen_w = self.settings.screen_w
          fleet_horizontal_space = fleet_w * alien_w
@@ -225,6 +294,12 @@ class AlienFleet:
 
 
      def calculate_fleet_size_3(self, alien_w, screen_w, alien_h, screen_h):
+         """Calculates how many aliens will be created in the fleet, with fleet_w being
+         the number of aliens in a row, and fleet_h being number of aliens in a column
+         Attributes: 
+         fleet_w : number of aliens in a row
+         fleet_h: Number of aliens in a column
+         """        
          fleet_w = (screen_w/alien_w)
          fleet_h = 5
 
@@ -244,6 +319,12 @@ class AlienFleet:
 
          
      def create_fleet(self):
+          """Creates an alien fleet when the ship is at the bottom of the screen
+         Attributes:
+         fleet_w: How many ships fit in one row of the fleet
+         fleet_h: How many ships fit in one column of the fleet
+         x_offset: Horiztonal space added before the fleet is drawn
+         y_offset: Vertical space added before the fleet is drawn"""
           alien_w = self.settings.alien_w
           alien_h = self.settings.alien_h
           screen_h = self.settings.screen_h
@@ -257,6 +338,12 @@ class AlienFleet:
 
 
      def _create_rectangle_fleet(self, alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset):
+         """Adds aliens to the fleet by the relative position current_x, current_y
+          Attributes:
+        current_x: The horizontal position of where the alien will be created
+        current_y: The vertical position of where the alien will be created
+        ran_1, 2, 3, 4: Random numbers generated to leave out alien generations at these random positions
+        If current_x or y divided by ran_1 ,2... gives remainder 0, alien won't be created"""
          num_of_aliens_gen = random.SystemRandom()
          ran_1 = (num_of_aliens_gen.randint(2,10))
          ran_2 = (num_of_aliens_gen.randint(2,10))
@@ -285,6 +372,12 @@ class AlienFleet:
 
 
      def calculate_offset(self, alien_w, alien_h, screen_w, fleet_w, fleet_h):
+         """Caculates the offset or amount of space before the alien fleet is created both horizontally
+         and vertically
+         Attributes:
+         fleet_horizontal_space: How much space the fleet takes up horizontally
+         fleet_vertical_space: How much space the fleet takes up vertically
+         """
          half_screen = self.settings.screen_h//2
          fleet_horizontal_space = fleet_w * alien_w
          fleet_vertical_space = fleet_h * alien_h
@@ -294,6 +387,12 @@ class AlienFleet:
 
 
      def calculate_fleet_size(self, alien_w, screen_w, alien_h, screen_h):
+         """Calculates how many aliens will be created in the fleet, with fleet_w being
+         the number of aliens in a row, and fleet_h being number of aliens in a column
+         Attributes: 
+         fleet_w : number of aliens in a row
+         fleet_h: Number of aliens in a column
+         """        
          fleet_w = (screen_w//alien_w)
          fleet_h = 10
 
@@ -313,6 +412,10 @@ class AlienFleet:
      
      
      def _create_alien(self, current_x: int, current_y:int):
+          """Creates an alien and adds it to the fleet
+          Parameters:
+          current_x:Horizontal Position of creation of alien 
+          current_y:Vertical position of alien creation"""
           new_alien = Alien(self, current_x, current_y)
 
           self.fleet.add(new_alien)
@@ -320,22 +423,33 @@ class AlienFleet:
 
 
      def _drop_alien_fleet(self):
+          """Drops the aliens by
+          attribute:
+          self.fleet_drop_speed: Drop speed which is defined earlier by settings"""
           for alien in self.fleet:
                alien.y += self.fleet_drop_speed
 
      def _left_alien_fleet(self):
+         """Moves aliens to the left according to drop speed
+         """
          for alien in self.fleet:
              alien.x-= self.fleet_drop_speed
 
      def _ascend_alien_fleet(self):
+         """Moves aliens up according to drop speed
+         """
          for alien in self.fleet:
              alien.y-= self.fleet_drop_speed
 
      def _right_alien_fleet(self):
+         """Moves aliens to the right according to drop speed
+         """
          for alien in self.fleet:
              alien.x+= self.fleet_drop_speed
 
      def _check_fleet_edges(self):
+          """Flips the direction aliens in fleet move if they hit an edge based on
+          the ships location"""
           alien : Alien
           for alien in self.fleet:
                if alien.check_edges() == True and self.game.ship.ship_location ==0:
@@ -356,6 +470,15 @@ class AlienFleet:
                    break
 
      def check_if_aliens_can_shoot_bottom(self):
+         """Checks if an alien in a fleet that is traveling towards the bottom of the screen
+         can shoot which depends on if there is an alien in front of 
+         its shooting path relative to its current rotation.  If it can shoot a bullet will fire
+         from the alien arsena depending on if its location is equal to one of the random values assigned.
+         
+         Attributes:
+         _list_of_aliens_can_shoot : List full of aliens that can shoot
+          _ran_x 1, 2 ,3: random values that represent a location at which an alien will shoot if its location
+           is equal to the random location """
          _list_of_aliens_can_shoot = []
          _ran_x = random.randrange(0,1201,3)
          _ran_x_2 = random.randrange(0,1201,3)
@@ -402,6 +525,15 @@ class AlienFleet:
       
 
      def check_alien_shoots_left(self):
+         """Checks if an alien in a fleet that is traveling to the left of the screen
+         can shoot which depends on if there is an alien in front of 
+         its shooting path relative to its current rotation.  If it can shoot a bullet will fire
+         from the alien arsena depending on if its location is equal to one of the random values assigned.
+         
+         Attributes:
+         _list_of_aliens_can_shoot : List full of aliens that can shoot
+          _ran_x 1, 2 ,3: random values that represent a location at which an alien will shoot if its location
+           is equal to the random location """
          
          _list_of_aliens_can_shoot = []
          _ran_y = random.randrange(0,701,3)
@@ -452,7 +584,15 @@ class AlienFleet:
                 self.alien_arsenal.fire_bullet(alien.x, alien.y)
 
      def check_alien_shoots_top(self):
+         """Checks if an alien in a fleet that is traveling towards the top of the screen
+         can shoot which depends on if there is an alien in front of 
+         its shooting path relative to its current rotation.  If it can shoot a bullet will fire
+         from the alien arsena depending on if its location is equal to one of the random values assigned.
          
+         Attributes:
+         _list_of_aliens_can_shoot : List full of aliens that can shoot
+          _ran_x 1, 2 ,3: random values that represent a location at which an alien will shoot if its location
+           is equal to the random location """        
          _list_of_aliens_can_shoot = []
          _ran_x = random.randrange(0,1201,3)
          _ran_x_2 = random.randrange(0,1201,3)
@@ -496,6 +636,15 @@ class AlienFleet:
                 self.alien_arsenal.fire_bullet(alien.x, alien.y)
 
      def check_alien_shoots_right(self):
+         """Checks if an alien in a fleet that is traveling towards the right of the screen
+         can shoot which depends on if there is an alien in front of 
+         its shooting path relative to its current rotation.  If it can shoot a bullet will fire
+         from the alien arsena depending on if its location is equal to one of the random values assigned.
+         
+         Attributes:
+         _list_of_aliens_can_shoot : List full of aliens that can shoot
+          _ran_x 1, 2 ,3: random values that represent a location at which an alien will shoot if its location
+           is equal to the random location """
          
          _list_of_aliens_can_shoot = []
          _ran_y = random.randrange(0,701,3)
@@ -542,6 +691,11 @@ class AlienFleet:
 
 
      def get_sprites_below (self, target_sprite):
+            """Gets all the aliens below the alien imported
+            Parameters: target_sprite, should be of type alien
+            
+            Attributes: _same_horizontal: list of aliens in the same horizontal location
+            verticaly_aligned: is true when the two aliens being compared are at the same vertical poistion"""
             
             _same_horizontal = []
             other: Alien
@@ -557,6 +711,11 @@ class AlienFleet:
                     _same_horizontal.append(other)
             return _same_horizontal
      def get_sprites_beside(self,target_sprite):
+            """Gets all the aliens below the alien imported
+            Parameters: target_sprite, should be of type alien
+            
+            Attributes: _same_vertical: list of aliens in the same vertical location
+            horizontally_aligned: is true when the two aliens being compared are at the same horizontal poistion"""
             same_vertical = []
             other: Alien
             for other in self.fleet:
@@ -580,6 +739,8 @@ class AlienFleet:
                         
 
      def update_fleet(self):
+          """Updates the fleet by removing aliens that are offscreen and checking
+          if it hits an edge.  Updates arsenal accordingly"""
           self._check_fleet_edges()
           self.remove_aliens_offscreen()
           self.fleet.update()
@@ -596,6 +757,7 @@ class AlienFleet:
       
 
      def draw(self):
+          """Draws aliens at their proper rotation"""
           self.alien_arsenal.draw()
           alien: 'Alien'
           for alien in self.fleet:
@@ -615,10 +777,14 @@ class AlienFleet:
                
 
      def check_collisions(self, other_group):
+          """Checks collisions between the fleet object and other sprite group
+          Parameters:
+          other_group: The group of sprites to check the collisions with
+          """
           return pygame.sprite.groupcollide(self.fleet, other_group, True, True)
      
      def remove_aliens_offscreen(self):
-          """Removes each bullet that is off screen from arsenal
+          """Removes each alien that is off screen from alien fleet
           """
           
           for alien in self.fleet:
@@ -628,21 +794,10 @@ class AlienFleet:
                      self.game.game_stats.score -= self.settings.alien_points
                      self.game.HUD.update_scores()
                     
-                   
-          
-     
-
-     def check_fleet_bottom(self):
-          alien: Alien
-          for alien in self.fleet:
-               if alien.rect.bottom >= self.settings.screen_h:
-               
-                 return True
-          return False
-                   
-          
                   
      def check_destroyed_status(self):
+          """Checks if alien fleet is destroyed
+          Returns true if fleet is empty"""
           return not self.fleet
      
                

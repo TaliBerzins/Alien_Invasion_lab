@@ -102,6 +102,11 @@ class Bullet(Sprite):
 
      
      def rotate_bullet(self,angle):
+            """Rotates the bullet according to its angle
+            Parameters: angle, the angle at which the bullet will be rotated
+            Attributes: 
+            self.image: The resulting image from the rotation
+            self.rect: The resulting rectangle from rotating the image"""
         
             self.image = pygame.transform.rotate(self.original_image,angle)
             self.rect = self.image.get_rect(center=self.rect.center)
