@@ -61,6 +61,7 @@ class AlienInvasion:
         self.alien_fleet_2.create_fleet_2()
         self.alien_fleet_3.create_fleet_3()
         self.alien_fleet_4.create_fleet_4()
+        self.list_of_removed_aliens = []
 
         self.play_button = Button(self, 'Play')
         
@@ -82,7 +83,7 @@ class AlienInvasion:
                 if self.ship.has_rotated_top:
                   self.alien_fleet_3.update_fleet()
                 if self.ship.has_rotated_right:
-                  self.alien_fleet_4.update_fleet()
+                  self.alien_fleet_4.update_fleet() 
                 self._check_collisions()
                 
                 
@@ -90,6 +91,8 @@ class AlienInvasion:
 
             self._update_screen()
             self.clock.tick(self.settings.FPS)
+
+
 
     def _check_collisions(self):
         #check collisions for ship
@@ -137,11 +140,7 @@ class AlienInvasion:
         if self.ship.has_rotated_right:
             collisions_4 = self.alien_fleet_4.check_collisions(self.ship.arsenal.arsenal)
         
-        self.game_stats.update_negative_score(self.alien_fleet.remove_aliens_offscreen())
-        self.game_stats.update_negative_score(self.alien_fleet_2.remove_aliens_offscreen())
-        self.game_stats.update_negative_score(self.alien_fleet_3.remove_aliens_offscreen())
-        self.game_stats.update_negative_score(self.alien_fleet_4.remove_aliens_offscreen())
-
+        
         if collisions or collisions_2 or collisions_3 or collisions_4:
                self.impact_sound.play()
                self.impact_sound.fadeout(250)

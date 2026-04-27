@@ -62,9 +62,7 @@ class GameStats():
         for alien in collisions.values():
             self.score += self.settings.alien_points
     
-    def update_negative_score(self,list_of_removed_aliens):
-        for alien in list_of_removed_aliens:
-            self.score -= self.settings.alien_points
+ 
     
     def update_level(self):
         self.level += 1

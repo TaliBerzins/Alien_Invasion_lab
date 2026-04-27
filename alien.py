@@ -56,6 +56,8 @@ class Alien(Sprite):
            return (self.rect.right >= self.boundaries.right or self.rect.left<= self.boundaries.left)
           elif self.fleet.ship.ship_location == 1 or self.fleet.ship.ship_location == 3:
            return (self.rect.bottom >= self.boundaries.bottom or self.rect.top<= self.boundaries.top)
+          
+          
 
      
      
