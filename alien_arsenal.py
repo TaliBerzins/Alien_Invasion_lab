@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 """Alien Invasion alien_Arsenal template
 Tali Berzins
 File defines the methods for defining the number of bullets left with the 
-ship in Alien Invasion game
+alien fleets in Alien Invasion game
 Started code is from professor Gabriel Walters tutorials
 04/12/2026 """
 
@@ -55,6 +55,8 @@ class AlienArsenal:
      
      def fire_bullet(self, x, y):
           """Creates a new bullet object and adds it to the alien_arsenal
+          x: Horiziontal position of rectangle where bullet is created
+          y: Vertical position of rectangle where bullet is created
           
           Returns True if there is space in alien_arsenal for new bullet"""
           if len(self.alien_arsenal) < self.settings.bullet_amount:

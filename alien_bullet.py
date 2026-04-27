@@ -24,11 +24,17 @@ class AlienBullet(Sprite):
      rect: the rectangle used to reference the position
      of the bullet
      y: the current position of the bullet
+     already_rotated: Defines whether the bullet has been rotated already
+     first_shot_instance: Keeps track of what position the bullet was fired from
+
      """
      def __init__(self, game: 'AlienInvasion', x: int , y: int):
           """
-          Defines the initial statuso f the bullet class
+          Defines the initial status of the bullet class
           including its vertical position and image
+          Parameters: 
+          x: Horizontal position of the top of a bullets rectangle
+          y: Vertical position of the top of a bullets rectangle
           """
           super().__init__()
           self.game = game
@@ -59,7 +65,9 @@ class AlienBullet(Sprite):
          
 
      def draw_bullet(self):
-          """Draws the bullet at its respective position"""
+          """Draws the bullet at its respective position, calls rotate function
+          depending on if the bullet has already been rotated.  If it hasn't been rotated it will rotate
+          if it has it won't be rotated.  Sets the location of where the bullet was rotated for the first time"""
           if self.game.ship.rect.y == 720 and self.game.ship.rect.width == 40 and self.already_rotated == False :
                self.rotate_bullet(0)
                self.already_rotated = True
@@ -83,7 +91,7 @@ class AlienBullet(Sprite):
 
      def update(self):
           """
-          Updates the bullets position based on its speed"""
+          Updates the bullets position based on its speed and where it was shot/rotated first"""
           if self.first_shot_instance == 1:
                self.y += self.settings.alien_bullet_speed
                self.rect.y = self.y
@@ -103,6 +111,8 @@ class AlienBullet(Sprite):
 
      
      def rotate_bullet(self,angle):
+            """Rotates the bullet based on the angle provided
+            """
         
             self.image = pygame.transform.rotate(self.original_image,angle)
             self.rect = self.image.get_rect(center=self.rect.center)

@@ -10,13 +10,35 @@ if TYPE_CHECKING:
      from alien_invasion import AlienInvasion
      from alien_arsenal import AlienArsenal
      from ship import Ship
+
+
+
+"""AlienFleet template
+Tali Berzins
+File defines the methods for creating and updating alien fleets
+Started code is from professor Gabriel Walters tutorials
+04/26/2026 """
      
      
      
 class AlienFleet:
+     """Creates alien fleets, updates and draws them according to ship's position.  Removes
+     alien objects that go offscreen and updates the score accordingly
+     Attributes:
+     fleet_direction: The value that defines what direction the alien fleet moves (positive or negatve)
+     fleet_drop_speed: How much the alien fleet moves if it hits an edge
+     list_of_removed_aliens: List of aliens that go off screen
+     alien_position : Position of an alien 
+     """
+
+
      
-     def __init__ (self, game: 'AlienInvasion',  alien_arsenal : 'AlienArsenal', ship: 'Ship'):
-          
+     def __init__ (self, game: 'AlienInvasion',  alien_arsenal : 'AlienArsenal'):
+          """Initializes alien fleet objects that are later referenced
+          Parameters: 
+          game: Type: AlienInvasion.  References the alieninvasion game so attributes such as settings
+          and objects such as ship can be accessed
+          alien_arsenal: Type: AlienArsenal.  Group of bullets assigned to an alien fleet """
           self.game = game
           self.settings = game.settings
           self.boundaries = game.screen.get_rect()
@@ -24,9 +46,8 @@ class AlienFleet:
           self.fleet_direction = self.settings.fleet_direction
           self.fleet_drop_speed = self.settings.fleet_drop_speed
           self.alien_arsenal = alien_arsenal
-          self.ship = ship
           self.list_of_removed_aliens = []
-          self.alien_position = 0
+         
           
           
 
@@ -39,7 +60,7 @@ class AlienFleet:
          alien_h = self.settings.alien_h
          screen_h = self.settings.screen_h
          screen_w = self.settings.screen_w
-         self.alien_position = 2
+         
 
          fleet_w , fleet_h= self.calculate_fleet_size_2(alien_w, screen_w, alien_h, screen_h)
 
@@ -100,7 +121,7 @@ class AlienFleet:
          alien_h = self.settings.alien_h
          screen_h = self.settings.screen_h
          screen_w = self.settings.screen_w
-         self.alien_position = 4
+      
 
          fleet_w , fleet_h= self.calculate_fleet_size_4(alien_w, screen_w, alien_h, screen_h)
 
@@ -317,19 +338,19 @@ class AlienFleet:
      def _check_fleet_edges(self):
           alien : Alien
           for alien in self.fleet:
-               if alien.check_edges() == True and self.ship.ship_location ==0:
+               if alien.check_edges() == True and self.game.ship.ship_location ==0:
                    self._drop_alien_fleet()
                    self.fleet_direction *=-1
                    break
-               elif alien.check_edges() == True and self.ship.ship_location ==1:
+               elif alien.check_edges() == True and self.game.ship.ship_location ==1:
                    self._left_alien_fleet()
                    self.fleet_direction *=-1
                    break
-               elif alien.check_edges() == True and self.ship.ship_location ==2:
+               elif alien.check_edges() == True and self.game.ship.ship_location ==2:
                    self._ascend_alien_fleet()
                    self.fleet_direction *=-1
                    break
-               elif alien.check_edges()== True  and self.ship.ship_location ==3:
+               elif alien.check_edges()== True  and self.game.ship.ship_location ==3:
                    self._right_alien_fleet()
                    self.fleet_direction *=-1
                    break
@@ -563,13 +584,13 @@ class AlienFleet:
           self.remove_aliens_offscreen()
           self.fleet.update()
           
-          if self.ship.ship_location == 0:
+          if self.game.ship.ship_location == 0:
             self.check_if_aliens_can_shoot_bottom()
-          elif self.ship.ship_location == 1:
+          elif self.game.ship.ship_location == 1:
               self.check_alien_shoots_left()
-          elif self.ship.ship_location == 2:
+          elif self.game.ship.ship_location == 2:
               self.check_alien_shoots_top()
-          elif self.ship.ship_location == 3:
+          elif self.game.ship.ship_location == 3:
               self.check_alien_shoots_right()
           self.alien_arsenal.update_alien_arsenal()
       
@@ -578,16 +599,16 @@ class AlienFleet:
           self.alien_arsenal.draw()
           alien: 'Alien'
           for alien in self.fleet:
-               if self.ship.ship_location == 0:
+               if self.game.ship.ship_location == 0:
                  alien.draw_alien(0)
                  self.location = 0 
-               elif self.ship.ship_location == 1:
+               elif self.game.ship.ship_location == 1:
                    alien.draw_alien(-90)
                    self.location = 1
-               elif self.ship.ship_location == 2:
+               elif self.game.ship.ship_location == 2:
                    alien.draw_alien(180)
                    self.location = 2
-               elif self.ship.ship_location == 3:
+               elif self.game.ship.ship_location == 3:
                    alien.draw_alien(90)
                    self.location = 3
 
