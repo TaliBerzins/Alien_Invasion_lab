@@ -788,8 +788,8 @@ class AlienFleet:
           """
           
           for alien in self.fleet:
-               if alien.x+40 >self.boundaries.right or alien.x<self.boundaries.left\
-               or alien.y<self.boundaries.top or alien.y+40>self.boundaries.bottom:
+               if alien.x>self.boundaries.right or alien.x<self.boundaries.left\
+               or alien.y<self.boundaries.top or alien.y>self.boundaries.bottom:
                      self.fleet.remove(alien)
                      self.game.game_stats.score -= self.settings.alien_points
                      self.game.HUD.update_scores()
