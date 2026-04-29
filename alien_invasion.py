@@ -150,15 +150,48 @@ class AlienInvasion:
                self.HUD.update_scores()
 
 
+        if not self.ship.has_rotated_left and not self.ship.has_rotated_right and not self.ship.has_rotated_top:
 
-
-    
-        if self.alien_fleet.check_destroyed_status():
+         if self.alien_fleet.check_destroyed_status():
             self.game_stats.update_level()
             self.HUD.update_level()
             self._reset_level()
             self.settings.increase_difficulty()
 
+        if self.ship.has_rotated_left and not self.ship.has_rotated_right and not self.ship.has_rotated_top:
+         if self.alien_fleet.check_destroyed_status() and self.alien_fleet_2.check_destroyed_status():
+            self.game_stats.update_level()
+            self.HUD.update_level()
+            self._reset_level()
+            self.settings.increase_difficulty()
+
+        if self.ship.has_rotated_right and not self.ship.has_rotated_top and not self.ship.has_rotated_left:
+         if self.alien_fleet.check_destroyed_status() and self.alien_fleet_4.check_destroyed_status():
+            self.game_stats.update_level()
+            self.HUD.update_level()
+            self._reset_level()
+            self.settings.increase_difficulty()
+
+        if self.ship.has_rotated_right and self.ship.has_rotated_top and not self.ship.has_rotated_left:
+         if self.alien_fleet.check_destroyed_status() and self.alien_fleet_4.check_destroyed_status() and self.alien_fleet_3.check_destroyed_status():
+            self.game_stats.update_level()
+            self.HUD.update_level()
+            self._reset_level()
+            self.settings.increase_difficulty()
+
+        if self.ship.has_rotated_left and self.ship.has_rotated_top and not self.ship.has_rotated_right:
+         if self.alien_fleet.check_destroyed_status() and self.alien_fleet_2.check_destroyed_status() and self.alien_fleet_3.check_destroyed_status():
+            self.game_stats.update_level()
+            self.HUD.update_level()
+            self._reset_level()
+            self.settings.increase_difficulty()
+        if self.ship.has_rotated_right and self.ship.has_rotated_top and self.ship.has_rotated_left:
+         if self.alien_fleet.check_destroyed_status() and self.alien_fleet_4.check_destroyed_status() and self.alien_fleet_3.check_destroyed_status()\
+            and self.alien_fleet_2.check_destroyed_status():
+            self.game_stats.update_level()
+            self.HUD.update_level()
+            self._reset_level()
+            self.settings.increase_difficulty()
     # def check_ship_rotation(self):
     #     if self.ship.has_rotated_left == True and self.ship.number_of_rotations == 1:
     #          self.alien_fleet_2.create_fleet_2()

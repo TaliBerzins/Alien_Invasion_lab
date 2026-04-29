@@ -1,0 +1,20 @@
+"Plan is to make player score go down once aliens cross the edge and to remove that alien 
+from the sprite group.  Create a dictionary of alien fleets and a for loop will 
+add a new fleet each time the ship is rotated.  
+
+
+if  self.ship.number_of_rotations >= 1 and self.ship.has_rotated_left and not self.ship.has_rotated_right:
+            self.alien_fleet_2.draw()
+            pygame.display.flip()
+        elif self.ship.number_of_rotations>= 1 and self.ship.has_rotated_right and not self.ship.has_rotated_left:
+            self.alien_fleet_4.draw()
+            pygame.display.flip()
+        elif self.ship.number_of_rotations>= 2 and self.ship.has_rotated_right and self.ship.has_rotated_left:
+            self.alien_fleet_2.draw()
+            self.alien_fleet_4.draw()
+            pygame.display.flip()
+
+
+        or self.ship.check_collisions(self.alien_fleet_2.fleet)  or self.ship.check_collisions(self.alien_fleet_2.alien_arsenal.alien_arsenal) \
+        or self.ship.check_collisions(self.alien_fleet_3.fleet)  or self.ship.check_collisions(self.alien_fleet_3.alien_arsenal.alien_arsenal ) \
+        or self.ship.check_collisions(self.alien_fleet_4.fleet)  or self.ship.check_collisions(self.alien_fleet_4.alien_arsenal.alien_arsenal): 

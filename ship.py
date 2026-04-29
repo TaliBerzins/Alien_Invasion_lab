@@ -130,7 +130,7 @@ class Ship:
         if self.moving_right and self.y_rect == 0 and self.x != 0:
             self.x -= temp_speed
             
-            self.number_of_rotations += 1
+            
 
         if self.moving_right and self.x <= 0 and self.y_rect == 0:
             self.rotate_ship(-90)
