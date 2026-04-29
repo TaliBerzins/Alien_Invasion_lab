@@ -61,13 +61,13 @@ class Alien(Sprite):
         temp_speed = self.settings.fleet_speed
         side_ways_temp_speed = self.settings.fleet_sideways_speed 
 
-        if self.fleet.game.ship.ship_location == 0 :
+        if self.fleet.ship.ship_location == 0 :
           self.x+=temp_speed * self.fleet.fleet_direction
-        elif self.fleet.game.ship.ship_location == 2:
+        elif self.fleet.ship.ship_location == 2:
               self.x-=temp_speed * self.fleet.fleet_direction * -1
-        elif self.fleet.game.ship.ship_location == 1:
+        elif self.fleet.ship.ship_location == 1:
               self.y-=side_ways_temp_speed * self.fleet.fleet_direction * -1
-        elif self.fleet.game.ship.ship_location == 3:
+        elif self.fleet.ship.ship_location == 3:
               self.y+=side_ways_temp_speed * self.fleet.fleet_direction * -1
         self.rect.x = self.x
         self.rect.y = self.y
@@ -76,9 +76,9 @@ class Alien(Sprite):
 
      def check_edges(self):
           """Checks if fleet has reached the edge for its respective rotation"""
-          if self.fleet.game.ship.ship_location == 0 or self.fleet.game.ship.ship_location == 2:
+          if self.fleet.ship.ship_location == 0 or self.fleet.ship.ship_location == 2:
            return (self.rect.right >= self.boundaries.right or self.rect.left<= self.boundaries.left)
-          elif self.fleet.game.ship.ship_location == 1 or self.fleet.game.ship.ship_location == 3:
+          elif self.fleet.ship.ship_location == 1 or self.fleet.ship.ship_location == 3:
            return (self.rect.bottom >= self.boundaries.bottom or self.rect.top<= self.boundaries.top)
           
           

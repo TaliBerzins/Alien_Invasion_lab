@@ -9,6 +9,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
      from alien_invasion import AlienInvasion
      from alien_arsenal import AlienArsenal
+     from ship import Ship
      
 
 
@@ -33,7 +34,7 @@ class AlienFleet:
 
 
      
-     def __init__ (self, game: 'AlienInvasion',  alien_arsenal : 'AlienArsenal'):
+     def __init__ (self, game: 'AlienInvasion',  alien_arsenal : 'AlienArsenal', ship: 'Ship'):
           """Initializes alien fleet objects that are later referenced
           Parameters: 
           game: Type: AlienInvasion.  References the alieninvasion game so attributes such as settings
@@ -47,6 +48,8 @@ class AlienFleet:
           self.fleet_drop_speed = self.settings.fleet_drop_speed
           self.alien_arsenal = alien_arsenal
           self.list_of_removed_aliens = []
+          self.ship_location =self.game.ship.ship_location
+          self.ship = ship
          
           
           
@@ -452,19 +455,19 @@ class AlienFleet:
           the ships location"""
           alien : Alien
           for alien in self.fleet:
-               if alien.check_edges() == True and self.game.ship.ship_location ==0:
+               if alien.check_edges() == True and self.ship.ship_location ==0:
                    self._drop_alien_fleet()
                    self.fleet_direction *=-1
                    break
-               elif alien.check_edges() == True and self.game.ship.ship_location ==1:
+               elif alien.check_edges() == True and self.ship.ship_location ==1:
                    self._left_alien_fleet()
                    self.fleet_direction *=-1
                    break
-               elif alien.check_edges() == True and self.game.ship.ship_location ==2:
+               elif alien.check_edges() == True and self.ship.ship_location ==2:
                    self._ascend_alien_fleet()
                    self.fleet_direction *=-1
                    break
-               elif alien.check_edges()== True  and self.game.ship.ship_location ==3:
+               elif alien.check_edges()== True  and self.ship.ship_location ==3:
                    self._right_alien_fleet()
                    self.fleet_direction *=-1
                    break
@@ -745,13 +748,13 @@ class AlienFleet:
           self.remove_aliens_offscreen()
           self.fleet.update()
           
-          if self.game.ship.ship_location == 0:
+          if self.ship_location == 0:
             self.check_if_aliens_can_shoot_bottom()
-          elif self.game.ship.ship_location == 1:
+          elif self.ship_location == 1:
               self.check_alien_shoots_left()
-          elif self.game.ship.ship_location == 2:
+          elif self.ship_location == 2:
               self.check_alien_shoots_top()
-          elif self.game.ship.ship_location == 3:
+          elif self.ship_location == 3:
               self.check_alien_shoots_right()
           self.alien_arsenal.update_alien_arsenal()
       
@@ -761,16 +764,16 @@ class AlienFleet:
           self.alien_arsenal.draw()
           alien: 'Alien'
           for alien in self.fleet:
-               if self.game.ship.ship_location == 0:
+               if self.ship.ship_location == 0:
                  alien.draw_alien(0)
                  self.location = 0 
-               elif self.game.ship.ship_location == 1:
+               elif self.ship.ship_location == 1:
                    alien.draw_alien(-90)
                    self.location = 1
-               elif self.game.ship.ship_location == 2:
+               elif self.ship.ship_location == 2:
                    alien.draw_alien(180)
                    self.location = 2
-               elif self.game.ship.ship_location == 3:
+               elif self.ship.ship_location == 3:
                    alien.draw_alien(90)
                    self.location = 3
 
@@ -788,10 +791,10 @@ class AlienFleet:
           """
           
           for alien in self.fleet:
-               if (alien.x+40>self.boundaries.right and self.game.ship.ship_location == 3)\
-                  or (alien.x<self.boundaries.left and self.game.ship.ship_location==1)\
-                      or (alien.y<self.boundaries.top and self.game.ship.ship_location == 2)\
-               or (alien.y+40>self.boundaries.bottom and self.game.ship.ship_location == 0):
+               if (alien.x+40>self.boundaries.right and self.ship_location == 3)\
+                  or (alien.x<self.boundaries.left and self.ship_location==1)\
+                      or (alien.y<self.boundaries.top and self.ship_location == 2)\
+               or (alien.y+40>self.boundaries.bottom and self.ship_location == 0):
                      self.fleet.remove(alien)
                      self.game.game_stats.score -= self.settings.alien_points
                      self.game.HUD.update_scores()

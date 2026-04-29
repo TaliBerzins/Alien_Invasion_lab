@@ -53,10 +53,10 @@ class AlienInvasion:
         self.impact_sound.set_volume(0.7)
 
         self.ship = Ship(self,Arsenal(self))
-        self.alien_fleet = AlienFleet(self, AlienArsenal(self))
-        self.alien_fleet_2 = AlienFleet(self, AlienArsenal(self))
-        self.alien_fleet_3 = AlienFleet(self, AlienArsenal(self))
-        self.alien_fleet_4 = AlienFleet(self, AlienArsenal(self))
+        self.alien_fleet = AlienFleet(self, AlienArsenal(self),self.ship)
+        self.alien_fleet_2 = AlienFleet(self, AlienArsenal(self),self.ship)
+        self.alien_fleet_3 = AlienFleet(self, AlienArsenal(self),self.ship)
+        self.alien_fleet_4 = AlienFleet(self, AlienArsenal(self),self.ship)
         self.alien_fleet.create_fleet() 
         self.alien_fleet_2.create_fleet_2()
         self.alien_fleet_3.create_fleet_3()
@@ -107,20 +107,17 @@ class AlienInvasion:
              if self.ship.check_collisions(self.alien_fleet_3.fleet):
                  self._check_game_status()
                  if self.ship.check_collisions(self.alien_fleet_3.alien_arsenal.alien_arsenal):
-                  self.alien_fleet_3.alien_arsenal.alien_arsenal.empty()  
                   self._check_game_status()
         if self.ship.has_rotated_left:
              if self.ship.check_collisions(self.alien_fleet_2.fleet):
                  self._check_game_status()
              if self.ship.check_collisions(self.alien_fleet_2.alien_arsenal.alien_arsenal):
-                 self.alien_fleet_2.alien_arsenal.alien_arsenal.empty()  
                  self._check_game_status()
         if self.ship.has_rotated_right:
              if self.ship.check_collisions(self.alien_fleet_4.fleet):
                  self._check_game_status()
                                     
              if self.ship.check_collisions(self.alien_fleet_4.alien_arsenal.alien_arsenal):
-                self.alien_fleet_4.alien_arsenal.alien_arsenal.empty()  
                 self._check_game_status()
 
 
@@ -184,8 +181,20 @@ class AlienInvasion:
         """Empties the sprite groups and recreates them"""
         self.ship.arsenal.arsenal.empty()
         self.alien_fleet.alien_arsenal.alien_arsenal.empty()
+        self.alien_fleet_2.alien_arsenal.alien_arsenal.empty()
+        self.alien_fleet_3.alien_arsenal.alien_arsenal.empty()
+        self.alien_fleet_4.alien_arsenal.alien_arsenal.empty()
         self.alien_fleet.fleet.empty()
+        self.alien_fleet_2.fleet.empty()
+        self.alien_fleet_3.fleet.empty()
+        self.alien_fleet_4.fleet.empty()
         self.alien_fleet.create_fleet()
+        self.alien_fleet_2.create_fleet_2()
+        self.alien_fleet_3.create_fleet_3()
+        self.alien_fleet_4.create_fleet_4()
+        self.ship.ship_reset_status()
+        self.ship._center_ship()
+        
 
     def restart_game(self):
         """Restarts the game at its level and updates scores, centers ship
@@ -194,7 +203,9 @@ class AlienInvasion:
         self.game_stats.reset_stats()
       
         self.HUD.update_scores()
+        self.HUD.update_level()
         self._reset_level()
+        
         self.ship._center_ship()
         self.game_active = True
         pygame.mouse.set_visible(False)

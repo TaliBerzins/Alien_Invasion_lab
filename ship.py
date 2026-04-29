@@ -73,6 +73,11 @@ class Ship:
 
     
         
+    def ship_reset_status(self):
+        self.has_rotated_left = False
+        self.has_rotated_right = False
+        self.has_rotated_top = False
+             
 
     def _center_ship(self):
         """Centers the ship and places it at the midbottom of the screen"""
